@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/sy.css" />
+		<link rel="stylesheet" href="dist/css/mui.picker.css">
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<script src="http://webapi.amap.com/maps?v=1.4.2&key=32c7948121be23d3988dc0a9c4d60d0a"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script src="js/getCity.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+	    <a class=""><i class="mui-icon mui-icon-location"></i><span id="city_text">广州市</span></a>
+	    <script src="dist/js/jquery.min.js"></script>
+		<script src="dist/js/mui.picker.min.js"></script>
+		<script src="dist/js/data.city.js"></script>
+		<script>
+			//选择省市区
+		    var city_picker = new mui.PopPicker({layer:3});
+			city_picker.setData(init_city_picker);
+			$("#city_text").on("tap", function(){
+			    setTimeout(function(){
+					city_picker.show(function(items){
+		//				$("#city_id").val((items[0] || {}).value + "," + (items[1] || {}).value + "," + (items[2] || {}).value);//该ID为接收城市ID字段
+						$("#city_text").html((items[0] || {}).text+','+(items[2] || {}).text+','+(items[3] || {}).text);
+						console.log((items[2] || {}).text);
+					  });
+					},200);
+					
+				})
+		</script>
+	    <div class="mui-title"><i class="mui-icon mui-icon-search"></i>找铺、转铺</div>
+	    <a id="lianXi" class="mui-icon mui-icon-contact mui-pull-right"></a>
+	    <div id="she_tan">
+		    	<div class="tan_nei">
+		    		<p>
+		    			<i class="mui-icon mui-icon-phone"></i>
+		    		    <span>客服电话</span>
+		    		</p>		    		
+		    		<a href="tel:15902092789">15902092789(售前)</a>
+		    	    <a href="tel:15902092789">15902092789(售后)</a>
+		    	    <a href="tel:15902092789">15902092789(投诉)</a>
+		    	</div>
+		    	<div id="sheet1">  
+		        </div>
+		    </div>
+		    <script>
+		    	var she_tan = document.getElementById('she_tan');
+		    	mui('.mui-bar-nav').on('tap','#lianXi',function(){
+		    		she_tan.className = 'she_dis'
+		    	})
+		    	mui('#she_tan').on('tap','#sheet1',function(){
+		    		she_tan.className = ''
+		    	})
+		    </script>
+	</header>
+		<div class="mui-content">
+	     <div class="mui-slider">
+		  <div class="mui-slider-group mui-slider-loop">
+		    <!--支持循环，需要重复图片节点-->
+		    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="images/lunbo3.png" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="images/lunbo1.jpg" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="images/lunbo2.png"/></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="images/lunbo3.png" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="images/lunbo1.jpg" /></a></div>
+		    <!--支持循环，需要重复图片节点-->
+		    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="images/lunbo2.png"/></a></div>
+		  </div>
+		</div>
+		<script>
+			//获得slider插件对象
+			var gallery = mui('.mui-slider');
+			gallery.slider({
+			  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
+			});
+		</script>
+		<!--轮播图end-->
+		
+	    <div class="mui-row">
+            <a class="mui-col-sm-3 mui-col-xs-3">
+                <i class="iconfont icon-dianpu1zhuanhuan"></i>
+                <span>商铺转让</span>
+            </a>
+            <a class="mui-col-sm-3 mui-col-xs-3">
+                <i class="iconfont icon-chakandianpu"></i>
+                <span>店铺查找</span>
+            </a>
+            <a class="mui-col-sm-3 mui-col-xs-3">
+                <i class="iconfont icon-xuanzhongdizhi"></i>
+                <span>商铺出租</span>
+            </a>
+            <a class="mui-col-sm-3 mui-col-xs-3">
+                <i class="iconfont icon-chazhaomendianicon"></i>
+                <span>店铺招租</span>
+            </a>
+		</div>
+		
+		<!--统计人数-->
+		<div class="statistics">
+			<a href="">
+				<p>正在找店</p>
+				<span>3366</span>
+			</a>
+			<a href="">
+				<p>最近成交</p>
+				<span>5216</span>
+			</a>
+			<a href="">
+				<p>入驻顾客户</p>
+				<span>45623</span>
+			</a>
+		</div>
+		<!--统计人数end-->
+		
+		<!--成交客户-->
+		<div class="classify">
+			<div class="video">
+				<a class="mui-pull-left" href="">成交客户</a>
+				<a class="mui-pull-right" href="">查看全部<i class="mui-icon mui-icon-arrowright"></i></a>
+			</div>
+			<div class="cla_ch">
+				<div class="mui-slider">
+				  <div class="mui-slider-group">
+				    <div class="mui-slider-item">
+				    	<a href="#">
+				    		<img src="images/chjiao.jpg" />
+					    	<p>龙华新区 | 孙先生、邓小姐的餐馆成功转让</p>
+					    	<div class="cla_ch_shm">
+					    		<span>29天</span>
+					    		非常满意
+					    	</div>
+				        </a>
+				        <a href="#">
+				        	<img src="images/chjiao2.png" />
+					    	<p>宝安区 | 陈小姐的美容院转让成功</p>
+					    	<div class="cla_ch_shm">
+					    		<span>20天</span>
+					    		非常满意
+					    	</div>
+				        </a>
+				    </div>
+				    <div class="mui-slider-item">
+				    	<a href="#">
+				    		<img src="images/chjiao.jpg" />
+					    	<p>龙华新区 | 孙先生、邓小姐的餐馆成功转让</p>
+					    	<div class="cla_ch_shm">
+					    		<span>29天</span>
+					    		非常满意
+					    	</div>
+				        </a>
+				        <a href="#">
+				        	<img src="images/chjiao2.png" />
+					    	<p>宝安区 | 陈小姐的美容院成功转让</p>
+					    	<div class="cla_ch_shm">
+					    		<span>20天</span>
+					    		非常满意
+					    	</div>
+				        </a>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<!--成交客户end-->
+		
+		<!--转铺招租-->
+		<div class="goShop">
+			<div class="shop_up">
+				<a class="mui-pull-left">转铺招租(<span>32564</span>)</a>
+				<a class="mui-pull-right" href="">查看所有<i class=" mui-icon mui-icon-arrowright"></i></a>
+			</div>
+			<ul class="mui-table-view">
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:;">
+			            <img class="mui-media-object mui-pull-left" src="images/chpin.jpg">
+			            <div class="mui-media-body">
+			            	<div class="smjs">宝安区精装修KTV低价转让</div>
+			                <p class="mui-ellipsis"><span>宝安区</span>&nbsp;&nbsp;<span>歌舞厅(ktv)</span></p>
+			                <p><span class="span">40平方</span>&nbsp;&nbsp;<span>3200/月</span></p>
+			            </div>
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:;">
+			            <img class="mui-media-object mui-pull-left" src="images/chpin.jpg">
+			            <div class="mui-media-body">
+			            	<div class="smjs">宝安区精装修KTV低价转让</div>
+			                <p class="mui-ellipsis"><span>宝安区</span>&nbsp;&nbsp;<span>歌舞厅(ktv)</span></p>
+			                <p><span class="span">40平方</span>&nbsp;&nbsp;<span>3200/月</span></p>
+			            </div>
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:;">
+			            <img class="mui-media-object mui-pull-left" src="images/chpin.jpg">
+			            <div class="mui-media-body">
+			            	<div class="smjs">宝安区精装修KTV低价转让</div>
+			                <p class="mui-ellipsis"><span>宝安区</span>&nbsp;&nbsp;<span>歌舞厅(ktv)</span></p>
+			                <p><span class="span">40平方</span>&nbsp;&nbsp;<span>3200/月</span></p>
+			            </div>
+			        </a>
+			    </li>
+			</ul>			
+			<div class="shop_bot">
+				<i></i>&nbsp;&nbsp;碰到我的底线了&nbsp;&nbsp;<i></i>
+		    </div>
+		</div>		
+		<!--转铺招租end-->	
+	</div>
+	</body>
+
+</html>

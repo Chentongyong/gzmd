@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/sy.css" />
+		<link rel="stylesheet" href="dist/css/mui.picker.css">
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<script src="http://webapi.amap.com/maps?v=1.4.2&key=cd68d6c656adacc05bad2d1e6ba2c715"></script>
+		<script src="./js/getCity.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="">
+				<i class="mui-icon mui-icon-location"></i>
+				<span id="city_text"></span>
+			</a>
+			<script src="dist/js/jquery.min.js"></script>
+			<script src="dist/js/mui.picker.min.js"></script>
+			<script src="dist/js/data.city.js"></script>
+			<script>
+				//选择省市区
+				var city_picker = new mui.PopPicker({ layer: 3 });
+				city_picker.setData(init_city_picker);
+				$("#city_text").on("tap", function() {
+					setTimeout(function() {
+						city_picker.show(function(items) {
+							//				$("#city_id").val((items[0] || {}).value + "," + (items[1] || {}).value + "," + (items[2] || {}).value);//该ID为接收城市ID字段
+							$("#city_text").html((items[1] || {}).text);
+							console.log((items[1] || {}).text);
+							if(city_text==(items[1] || {}).text){
+							 	alert('定位失败')
+							 }else{
+							 	 sy();
+							 }
+						});
+					}, 200);
+
+				})
+			</script>
+			
+			<div id="search" class="mui-title tits">
+				<i class="mui-icon mui-icon-search"></i>找铺、转铺
+			</div>
+
+			<a id="lianXi" class="mui-icon mui-icon-contact mui-pull-right"></a>
+			<div id="she_tan">
+				<div class="tan_nei">
+					<p>
+						<i class="mui-icon mui-icon-phone"></i>
+						<span>客服电话</span>
+					</p>
+					<a href="tel:15902092789">15902092789(售前)</a>
+					<a href="tel:15902092789">15902092789(售后)</a>
+					<a href="tel:15902092789">15902092789(投诉)</a>
+				</div>
+				<div id="sheet1">
+				</div>
+			</div>
+			<script>
+				var she_tan = document.getElementById('she_tan');
+				mui('.mui-bar-nav').on('tap', '#lianXi', function() {
+					she_tan.className = 'she_dis'
+				})
+				mui('#she_tan').on('tap', '#sheet1', function() {
+					she_tan.className = ''
+				})
+			</script>
+		</header>
+		<div class="mui-content">
+			<div class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!--支持循环，需要重复图片节点-->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a class="a11">
+							<img src="images/lunbo3.png" />
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a class="a12">
+							<img src="images/lunbo1.jpg" />
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a class="a13">
+							<img src="images/lunbo2.png" />
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a class="a11">
+							<img src="images/lunbo3.png" />
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a class="a12">
+							<img src="images/lunbo1.jpg" />
+						</a>
+					</div>
+					<!--支持循环，需要重复图片节点-->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a class="a13">
+							<img src="images/lunbo2.png" />
+						</a>
+					</div>
+				</div>
+			</div>
+			<!--<script>
+			//获得slider插件对象
+			var gallery = mui('.mui-slider');
+			gallery.slider({
+				interval: 2000//自动轮播周期，若为0则不自动播放，默认为0；
+			});
+			
+			//产品介绍
+			mui('.mui-slider-loop').on('tap','.a11',function(){
+				mui.openWindow({
+					url:'sy_carousel1.html',
+					id:'sy_carousel1.html',
+					style:{},
+					show:{
+						autoShow:true,
+						aniShow:"slide-in-right,",
+						duration:100
+					},
+					waiting:{
+						autoShow:true,
+						title:"正在加载...",
+						options:{
+							//width:
+							//height:
+						}
+					}			
+				})
+			})
+			
+			//服务
+			mui('.mui-slider-loop').on('tap','.a12',function(){
+				mui.openWindow({
+					url:'sy_carousel2.html',
+					id:'sy_carousel2.html',
+					style:{},
+					show:{
+						autoShow:true,
+						aniShow:"slide-in-right,",
+						duration:100
+					},
+					waiting:{
+						autoShow:true,
+						title:"正在加载...",
+						options:{
+							//width:
+							//height:
+						}
+					}			
+				})
+			})
+			
+			//公司简介
+			mui('.mui-slider-loop').on('tap','.a13',function(){
+				mui.openWindow({
+					url:'sy_carousel3.html',
+					id:'sy_carousel3.html',
+					style:{},
+					show:{
+						autoShow:true,
+						aniShow:"slide-in-right,",
+						duration:100
+					},
+					waiting:{
+						autoShow:true,
+						title:"正在加载...",
+						options:{
+							//width:
+							//height:
+						}
+					}			
+				})
+			})
+		</script>-->
+			<!--轮播图end-->
+
+			<div class="mui-row boxs">
+				<a class="mui-col-sm-3 mui-col-xs-3 a_tz2" title="商铺转让">
+					<i class="iconfont icon-dianpu1zhuanhuan"></i>
+					<span>商铺转让</span>
+				</a>
+				<a class="mui-col-sm-3 mui-col-xs-3 a_tz1" title="店铺选址">
+					<i class="iconfont icon-chakandianpu"></i>
+					<span>店铺选址</span>
+				</a>
+				<a class="mui-col-sm-3 mui-col-xs-3 a_tz2" title="商铺出租">
+					<i class="iconfont icon-xuanzhongdizhi"></i>
+					<span>商铺出租</span>
+				</a>
+				<a class="mui-col-sm-3 mui-col-xs-3">
+					<i class="iconfont icon-chazhaomendianicon a_tz1" title="店铺求租"></i>
+					<span>店铺求租</span>
+				</a>
+			</div>
+			<!--统计人数-->
+			<div class="statistics">
+				<a id="zzzd">
+					<p>正在找店</p>
+					<!--<span>data</span>-->
+				</a>
+				<a id="zjcj">
+					<p>最近成交</p>
+				<!--<span>5216</span>-->
+				</a>
+				<a id="rzkh">
+					<p>入驻客户</p>
+				<!--<span>45623</span>-->
+				</a>
+			</div>
+			<!--统计人数end-->
+
+			<!--成交客户-->
+			<div class="classify">
+				<div class="video">
+					<a class="mui-pull-left">成交客户</a>
+					<a class="mui-pull-right">查看全部
+						<i class="mui-icon mui-icon-arrowright"></i>
+					</a>
+				</div>
+				<div class="cla_ch">
+					<div class="mui-slider">
+						<div class="mui-slider-group">
+							<div id="chengjiaokehu" class="mui-slider-item">
+								
+							</div>
+							<div id="kehuchengjiao" class="mui-slider-item">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--转铺招租-->
+			<div class="goShop">
+				<div class="shop_up" title="商铺出租">
+					<a id="spcz" class="mui-pull-left">
+						<!--商铺出租(<span>32564</span>)-->
+					</a>
+					<a class="mui-pull-right">查看所有
+						<i class=" mui-icon mui-icon-arrowright"></i>
+					</a>
+				</div>
+				<ul id="ulObjs" class="mui-table-view">
+					
+				</ul>
+				
+				</script>
+				<div class="shop_bot">
+					<i></i>&nbsp;&nbsp;碰到我的底线了&nbsp;&nbsp;
+					<i></i>
+				</div>
+			</div>
+			<!--转铺招租end-->
+		</div>
+
+		<!--底部导航-->
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item" style="color: #f0f;">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a id="gongsi" class="mui-tab-item">
+				<span class="mui-icon mui-icon-chatboxes"></span>
+				<span class="mui-tab-label">公司介绍</span>
+			</a>
+			<a id="fabu" class="mui-tab-item">
+				<span class="mui-icon mui-icon-compose"></span>
+				<span class="mui-tab-label">发布</span>
+			</a>
+			<a id="wode" class="mui-tab-item">
+				<span class="iconfont icon-home"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+	</body>
+</html>
+<script src="js/index.js"></script>
+<script>
+	sl();
+	function sl() {
+		mui.ajax({
+			url: 'http://192.168.3.7:8080/Store/spApp!zzzd.action',
+			type: 'post',
+			async: true,
+			dataType: 'json',
+			crossDomain: true, //强制使用5+跨域
+			timeout: '10000',
+			success: function(data) {
+				zzzd.innerHTML += '<span>' + data + '</span>';
+			},
+			error: function(xhr, type, errorThrown) {
+				mui.toast("错误502")
+			}
+		});
+		mui.ajax({
+			url: 'http://192.168.3.7:8080/Store/storeactions!zjcj.action',
+			type: 'post',
+			async: true,
+			dataType: 'json',
+			crossDomain: true, //强制使用5+跨域
+			timeout: '10000',
+			success: function(data) {
+				zjcj.innerHTML += '<span>' + data + '</span>';
+			},
+			error: function(xhr, type, errorThrown) {
+				mui.toast("错误502")
+			}
+		});
+		mui.ajax({
+			url:'http://192.168.3.7:8080/Store/appuser!Utateal.action',
+			type:'post',
+			async: true,
+		    dataType: 'json',
+		    crossDomain: true, //强制使用5+跨域
+		    timeout:'10000',
+			success:function(data){
+				rzkh.innerHTML+='<span>'+data+'</span>';
+			},
+			error:function(xhr, type, errorThrown){
+				mui.toast("错误502")
+			}
+		});
+		mui.ajax({
+			url:'http://192.168.3.7:8080/Store/storeactions!chuzuQuery.action',
+			type:'post',
+			async: true,
+		    dataType: 'json',
+		    crossDomain: true, //强制使用5+跨域
+		    timeout:'10000',
+			success:function(data){
+				spcz.innerHTML='商铺出租(<span>'+data+'</span>)';
+			},
+			error:function(xhr, type, errorThrown){
+				mui.toast("错误502")
+			}
+		});
+		//成交轮播图
+		mui.ajax({
+			url:'http://192.168.3.7:8080/Store/storeactions!queryStateal.action?store.possession=2 ',
+			type:'post',
+			async: true,
+		    dataType: 'json',
+		    crossDomain: true, //强制使用5+跨域
+		    timeout:'10000',
+			success:function(data){
+				if(data!=null){
+					for(var i = 0,j=i+1,k=i+2,l=i+3; i<data.length; i++){
+						chengjiaokehu.innerHTML = '<a id="'+data[i].sid+'" title="'+data[i].name+'">'
+						+'<img src="'+data[i].img+'" /><p>'+data[i].name+'</p><div class="cla_ch_shm"><span>29天</span> 非常满意</div></a>'
+						+'<a id="'+data[j].sid+'" title="'+data[j].name+'">'
+						+'<img src="'+data[j].img+'" /><p>'+data[j].name+'</p><div class="cla_ch_shm"><span>29天</span> 非常满意</div></a>';
+						kehuchengjiao.innerHTML = '<a id="'+data[k].sid+'" title="'+data[k].name+'">'
+						+'<img src="'+data[k].img+'" /><p>'+data[k].name+'</p><div class="cla_ch_shm"><span>29天</span> 非常满意</div></a>'
+						+'<a id="'+data[l].sid+'" title="'+data[l].name+'">'
+						+'<img src="'+data[l].img+'" /><p>'+data[l].name+'</p><div class="cla_ch_shm"><span>29天</span> 非常满意</div></a>';
+					}
+				}
+				//跳转成功详情页
+				var detailPage9 = mui.preload({ url: 'mine_xq.html', id: 'mine_xq.html' })
+				mui('.cla_ch').on('tap','a',function(){
+					var sid = this.getAttribute('id');
+					console.log(sid)
+					mui.fire(detailPage9, 'newsId', {sid: sid});
+					mui.openWindow({ url: 'mine_xq.html', id: 'mine_xq.html' })
+				})
+			},
+		});
+
+	}
+	sy();
+	function sy() {
+		var uls = document.getElementById('ulObjs');
+		var sdf = document.getElementById('city_text');
+		uls.innerHTML = '';//切换城市时，先清空之前的数据
+		var seg = sdf.innerText;
+		mui.ajax({
+			url: 'http://192.168.3.7:8080/Store/storeactions!Siteselection.action?store.typead=出租'+'&rows=10'+'&page=1&store.address='+seg,
+			type: 'post',
+			async: true,
+			dataType: 'json',
+			crossDomain: true, //强制使用5+跨域
+			timeout: '10000',
+			success: function(data) {
+				var uls = document.getElementById('ulObjs');
+				for(var i = 0; i < data.length; i++) {
+					var li = document.createElement('li');
+					li.setAttribute("class", "mui-table-view-cell mui-media");
+//					li.style.padding = '10px';
+					li.innerHTML += '<a id=' + data[i].sid + ' title="' + data[i].name + '"><img class="mui-media-object mui-pull-left" width=100 height=80 src="'+data[i].img +'"/><div class="mui-media-body"><div class="smjs">' +
+						data[i].name + '</div><p class="mui-ellipsis"><span>' + data[i].address + '</span>&nbsp;&nbsp;<span>' + data[i].currentlease + '</span></p><p><span class="span">' +
+						data[i].square + '平方' + '</span>&nbsp;&nbsp;<span>' + data[i].transferfee + '</span></p></div></a>';
+					uls.appendChild(li);
+				}
+			},
+			error: function(xhr, type, errorThrown) {
+				mui.toast("网络出错")
+			}
+		});
+	}
+mui.plusReady(function(){
+	var uid = '';
+	var tel = '';
+	var uids = '';
+	var tels = '';
+	var member='';
+	//预加载
+	window.addEventListener('newsId', function(es) {
+		tels = es.detail.tel;
+		uids = es.detail.uid;
+		member = es.detail.member;
+		city_text = es.detail.city_text;
+	})
+	
+	//公司介绍
+	var detailPage1 = mui.preload({ url: 'examine.html', id: 'examine.html' })
+	mui('#gongsi').on('tap', 'span', function(e) {
+		var city_text=document.getElementById('city_text').innerText;
+		mui.fire(detailPage1, 'newsId', { tel: tels, uid: uids, member:member,city_text: city_text });
+		mui.openWindow({ url: 'examine.html', id: 'examine.html' });
+	})
+	
+	//发布页面
+	var detailPage = mui.preload({ url: 'issue.html', id: 'issue.html' })
+	mui('#fabu').on('tap', 'span', function(e) {
+		var city_text=document.getElementById('city_text').innerText;
+		mui.fire(detailPage, 'newsId', { tel: tels, uid: uids, member:member,city_text: city_text });
+		mui.openWindow({ url: 'issue.html', id: 'issue.html' });
+	})
+	
+	//我的页面
+	var detailPage2 = mui.preload({ url: 'mine.html', id: 'mine.html' })
+	mui('#wode').on('tap', 'span', function(e) {
+		var city_text=document.getElementById('city_text').innerText;
+		mui.fire(detailPage2, 'newsId', { tel: tels, uid: uids, member:member,city_text: city_text });
+		mui.openWindow({ url: 'mine.html', id: 'mine.html' });
+	})
+
+	//搜索框
+	var detailPage3 = mui.preload({ url: 'sy_search.html', id: 'sy_search.html' })
+	mui('.mui-bar-nav').on('tap', ' #search', function(e) {
+		var city_text=document.getElementById('city_text').innerText;
+		mui.fire(detailPage3, 'newsId', { city_text: city_text });
+		mui.openWindow({ url: 'sy_search.html', id: 'sy_search.html' });
+	})
+	
+	//商铺出租查看全部
+	var detailPage4 = mui.preload({ url: 'sy_assign_1.html', id: 'sy_assign_1.html' })
+	mui('.goShop').on('tap', '.shop_up', function() {
+		var title = this.getAttribute('title');
+		var city_text=document.getElementById('city_text').innerText;
+		mui.fire(detailPage4, 'newsId', { tltit: title,city_text: city_text,uid: uids });
+		mui.openWindow({ url: 'sy_assign_1.html', id: 'sy_assign_1.html' });
+	})
+	
+	//通过商铺出租中的一条跳转详情
+	var detailPage5 = mui.preload({ url: 'mine_details.html', id: 'mine_details.html' })
+	mui('.mui-table-view').on('tap', 'a', function() {
+		var title = this.getAttribute('title');
+		var sid = this.getAttribute('id');
+		mui.fire(detailPage5, 'newsId', { sid: sid, uid: uids,title:title, });
+		mui.openWindow({ url: 'mine_details.html', id: 'mine_details.html' });
+	})
+	
+	//跳转成交客户
+	var detailPage6 = mui.preload({ url: 'sy_deal.html', id: 'sy_deal.html' })
+	mui('.video').on('tap','.mui-pull-right',function(){
+		//mui.fire(detailPage6, 'newsId', { sid: sid, uid: uids });
+		mui.openWindow({ url: 'sy_deal.html', id: 'sy_deal.html' });
+	})
+	
+	//商铺求租跳转到求租
+	var detailPage7 = mui.preload({ url: 'sy_assign2_1.html', id: 'sy_assign2_1.html' })
+	mui('.boxs').on('tap','.a_tz1',function(){
+	    var title = this.getAttribute('title');
+	    var city_text=document.getElementById('city_text').innerText;
+		mui.fire(detailPage7, 'newsId', { tltit: title, city_text: city_text,uid:uids });
+		mui.openWindow({ url: 'sy_assign2_1.html', id: 'sy_assign2_1.html' });
+	})
+	
+	////商铺出租跳转到出租
+	var detailPage8 = mui.preload({ url: 'sy_assign_1.html', id: 'sy_assign_1.html' })
+	mui('.boxs').on('tap','.a_tz2',function(){
+	    var title = this.getAttribute('title');
+	    var city_text=document.getElementById('city_text').innerText;
+	    mui.fire(detailPage8, 'newsId', { tltit: title, city_text: city_text,uid:uids });
+		mui.openWindow({ url: 'sy_assign_1.html', id: 'sy_assign_1.html' });
+	})
+})
+</script>

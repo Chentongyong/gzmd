@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>详情</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/general.css" />
+		<link rel="stylesheet" href="css/mine_details.css" />
+		<link rel="stylesheet" href="" />
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">详情</h1>
+		    <a class="mui-pull-right mui-icon mui-icon-star" onclick="addshoucang()">
+				<!--<span class="mui-icon mui-icon-star"></span>-->
+		    	<!--<span class="mui-icon mui-icon-pengyouquan" style="margin-left: 1px;"></span>-->
+		    </a>
+		    
+		</header>
+		<div class="mui-content">
+			<div class="mui-slider">
+				<div class="mui-slider-group">
+					<div class="mui-slider-item"><a href="#"><img src="images/lunbo1.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="images/lunbo2.png" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="images/lunbo1.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="images/lunbo2.png" /></a></div>
+				</div>
+			</div>
+			<!--弹窗显示分享-->
+			<!--<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">-->
+			    <!-- 可选择菜单 -->
+			    <!--<div class="mui-table-view she_nei">
+			        <a href="#" class="mui-icon mui-icon-weixin"></a>
+			        <a href="#" class="mui-icon mui-icon-qq"></a>
+			        <a href="#" class="mui-icon mui-icon-weibo"></a>
+			    </div>-->
+			    <!-- 取消菜单 -->
+			    <!--<ul class="mui-table-view">-->
+			      <!--<li class="mui-table-view-cell">
+			        <a href="#sheet1"><b>取消</b></a>
+			      </li>
+			    </ul>
+			</div>
+			<script>
+				mui('a').on('tap','.mui-icon-pengyouquan',function(){
+					mui('#sheet1').popover('toggle');
+				})
+				
+			</script>-->
+			<!--弹窗显示分享end-->
+			
+			<div id="details">
+				<div class="det_up">
+					<h4>龙华小卖部转让</h4>
+					<div class="up_xx">
+						<span class="mui-pull-left">更新时间：<i>2017-10-1</i></span>
+						<span class="mui-pull-right">信息编号：<i>625348921</i></span>
+					</div>
+				</div>
+				<div class="det_center">
+					<div>租&nbsp;&nbsp;&nbsp;&nbsp;金：&nbsp;&nbsp;<span class="s_color">面议</span></div>
+					<img src="images/chjiao2.png" alt="" width="80"/>
+					<div>面&nbsp;&nbsp;&nbsp;&nbsp;积：&nbsp;&nbsp;<span>60平米</span></div>
+					<div>历史经营：&nbsp;&nbsp;<span>空铺</span></div>
+					<div class="s_style">地&nbsp;&nbsp;&nbsp;&nbsp;址：&nbsp;&nbsp;<span>龙岗区龙岗中心龙城大道  或者联系电话虚假，或有虚假、违法信息，请立刻举报！</span></div>
+				</div>
+				<div class="det_xia">
+					<h4>详细描述</h4>
+					<p>合适：品牌小吃及冷饮，便利店，快餐等，外面有外摆桌子的空间，可以利用</p>
+				</div>
+			</div>
+			<!--提示-->
+			<div class="hint">
+				<h5>温馨提醒</h5>
+				<div>
+					<span>如果您发现信息描述和实际不符合，或者联系电话虚假，或有虚假、违法信息，请立刻举报！</span>
+					<span class="spos_a">举报</span>
+				</div>
+			</div>
+			<!--提示end-->
+		</div>
+		<nav id="geren" class="mui-bar mui-bar-tab">
+		    <!--<a href="" class="a_left">
+		    	<span class="sp_color">王小姐(<b>个人</b>)</span>
+		    	<span>13546854857</span>
+		    </a>
+		    <a href="" class="a_right">
+		    	<span class="mui-icon mui-icon-phone sp_r"></span>
+		    	<!--<i></i>-->
+		    	<!--<span class="mui-icon mui-icon-chat"></span>-->
+		    <!--</a>-->
+		</nav>
+	</body>
+
+</html>
+<script>
+	var uid = '';
+	var sid = '';
+	var spid = '';
+	var titleName = '';
+	var title = '';
+	mui.plusReady(function(){
+		window.addEventListener('newsId',function(t) {
+			titleName = t.detail.tltit;
+			uid = t.detail.uid;
+			sid = t.detail.sid;
+			spid = t.detail.spid;
+			title = t.detail.title;
+		if(titleName!='店铺求租' && titleName!='店铺选址'){
+			mui.ajax({
+				url:'http://192.168.3.7:8080/Store/storeactions!oneToOne.action?store.sid='+sid,
+				type:'post',
+				async: true,
+			    dataType: 'json',
+			    crossDomain: true, //强制使用5+跨域
+			    timeout:'10000',
+				success:function(data){
+					details.innerHTML='<div class="det_up"><h4>'+data.sname+'</h4><div class="up_xx"><span class="mui-pull-left">'+
+					'更新时间：<i>'+data.sdate+'</i></span><span class="mui-pull-right">信息编号：<i>'
+					+'2018119'+'</i></span></div></div><div class="det_center"><div>租&nbsp;&nbsp;&nbsp;&nbsp;金：&nbsp;&nbsp;<span class="s_color">面议</span></div>'
+					+'<img src="'+data.img+'" alt="" width="80"/><div>面&nbsp;&nbsp;&nbsp;&nbsp;积：&nbsp;&nbsp;<span>'
+					+data.square+'平米</span></div><div>历史经营：&nbsp;&nbsp;<span>空铺</span></div>'
+					+'<div class="s_style">地&nbsp;&nbsp;&nbsp;&nbsp;址：&nbsp;&nbsp;<span>'+data.address+'</span></div></div><div class="det_xia"><h4>详细描述</h4><p>'
+					+data.shopintroduction+'</p></div></div>';
+					
+					geren.innerHTML='<a class="a_left"><span class="sp_color">'+data.username
+					+'(<b>个人</b>)</span><span>'+data.tel+'</span></a><a class="a_right">'
+			    	+'<span class="mui-icon mui-icon-phone sp_r"></span><i></i><span class="mui-icon mui-icon-chat"></span></a>';
+				},
+				error:function(xhr, type, errorThrown){
+					mui.toast("请检查网络")
+				}
+			});
+		}else{
+			mui.ajax({
+				url:'http://192.168.3.7:8080/Store/spApp!oneToXQ.action?shopPurchase.spid='+spid,
+				type:'post',
+				async: true,
+			    dataType: 'json',
+			    crossDomain: true, //强制使用5+跨域
+			    timeout:'10000',
+				success:function(data){
+					details.innerHTML='<div class="det_up"><h4>'+data.title+'</h4><div class="up_xx"><span class="mui-pull-left">'+
+					'更新时间：<i>'+data.sdate+'</i></span><span class="mui-pull-right">信息编号：<i>'
+					+'2018119'+'</i></span></div></div><div class="det_center"><div>租&nbsp;&nbsp;&nbsp;&nbsp;金：&nbsp;&nbsp;<span class="s_color">面议</span></div>'
+					+'<div>面&nbsp;&nbsp;&nbsp;&nbsp;积：&nbsp;&nbsp;<span>'
+					+data.acreage+'平米</span></div><div>历史经营：&nbsp;&nbsp;<span>空铺</span></div>'
+					+'<div class="s_style">地&nbsp;&nbsp;&nbsp;&nbsp;址：&nbsp;&nbsp;<span>'+data.region+'</span></div></div><div class="det_xia"><h4>详细描述</h4><p>'
+					+data.contacts+'</p></div></div>';
+					
+					geren.innerHTML='<a class="a_left"><span class="sp_color">'+data.username
+					+'(<b>个人</b>)</span><span>'+data.tel+'</span></a><a class="a_right">'
+			    	+'<span class="mui-icon mui-icon-phone sp_r"></span><i></i><span class="mui-icon mui-icon-chat"></span></a>';
+				},
+				error:function(xhr, type, errorThrown){
+					mui.toast("502")
+				}
+			});
+		}
+		console.log(uid)
+		//新增浏览记录
+		if(uid!=''){
+			mui.ajax({
+				url:'http://192.168.3.7:8080/Store/appclt!addliulan.action?u.uid='+uid+'&s.sid='+sid,
+				type:'post',
+				async: true,
+			    dataType: 'json',
+			    crossDomain: true, //强制使用5+跨域
+			    timeout:'10000',
+				success:function(data){
+					console.log("新增浏览记录")
+				},
+				error:function(xhr, type, errorThrown){
+					mui.toast("请检查网络")
+				}
+			});
+		}
+	})
+	})
+	
+	//增加收藏
+	function addshoucang(){
+		if(uid!=''){
+			server ='http://192.168.3.7:8080/Store/appclt!AddCollection.action?u.uid='+uid+'&s.sid='+sid;
+			mui.ajax({
+				url:server,
+				type:'post',
+				async: true,
+			    dataType: 'json',
+			    crossDomain: true, //强制使用5+跨域
+			    timeout:'10000',
+				success:function(data){
+					mui.toast("收藏成功")
+				},
+				error:function(xhr, type, errorThrown){
+					mui.toast("请检查网络")
+				}
+			});
+		}else{
+			mui.toast("请登录后收藏");
+		}
+	}
+	
+</script>

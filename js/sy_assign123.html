@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/general.css" />
+		<link rel="stylesheet" href="css/sy_assign.css" />
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 id="title" class="mui-title">店铺出租</h1>
+		    <a class="mui-icon mui-icon-search mui-pull-right"></a>
+		    <script>
+		    	mui('.mui-bar-nav').on('tap','.mui-pull-right',function(){
+		    		mui.openWindow({
+				    	url: "sy_search.html",
+				    	id: "sy_search.html",
+					  	style:{},
+//					    	extras:{
+//					    		title:title
+//					    	},
+					  	show: {
+					  		autoShow:true,
+					  		aniShow:"slide-in-right",
+					  		duration:100
+					  	},
+					  	waiting:{
+					  		autoShow:true,
+					  	}
+				    })
+		    	})
+		    </script>
+		</header>
+<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+  <div class="mui-scroll">
+    <!--数据列表-->
+    <ul class="mui-table-view mui-table-view-chevron">
+      
+    </ul>
+  </div>
+</div>
+		
+		<!--出租-->
+			<div id="she1" class="she_tan">
+			    <ul>
+			        <li class="li1 li_color">出租</li>
+			        <li class="li1">出售</li>
+			    </ul>
+			    <div class="sheet1"></div>
+			</div>
+			
+			<!--区域-->
+			<div id="she2" class="she_tan">
+			    <ul>
+			        <li class="li2 li_color">全城</li>
+			        <li class="li2">海珠区</li>
+			        <li class="li2">荔湾区</li>
+			        <li class="li2">天河区</li>
+			        <li class="li2">番禺区</li>
+			    </ul>
+			    <div class="sheet1"></div>
+		    </div>
+		    
+		    <!--面积-->
+		    <div id="she3" class="she_tan ">
+			    <ul>
+			        <li class="li3 li_color">无限</li>
+			        <li class="li3">20平方以下</li>
+			        <li class="li3">20-50平方</li>
+			        <li class="li3">50-100平方</li>
+			        <li class="li3">100-200平方</li>
+			        <li class="li3">200-500平方</li>
+			        <li class="li3">500平方以上</li>
+			    </ul>
+			    <div class="sheet1"></div>
+			</div>
+			<!--<div id="she_tan">
+					<div class="tan_nei">
+						<p>
+							<i class="mui-icon mui-icon-phone"></i>
+							<span>客服电话</span>
+						</p>
+						<a href="tel:15902092789">15902092789(售前)</a>
+						<a href="tel:15902092789">15902092789(售后)</a>
+						<a href="tel:15902092789">15902092789(投诉)</a>
+					</div>
+					<div id="sheet1">
+					</div>
+				</div>-->
+		</div>
+		
+		
+		
+		
+		<nav class="mui-bar mui-bar-tab">
+		    <a class="mui-tab-item">
+		        <div>
+		        	<span class="mui-tab-label">出租</span>
+		            <span class="mui-icon mui-icon-arrowright mui-pull-right"></span>
+		        </div>
+		    </a>
+		    <a class="mui-tab-item">
+		        <div>
+		        	<span class="mui-tab-label">区域</span>
+		            <span class="mui-icon mui-icon-arrowright mui-pull-right"></span>
+		        </div>
+		    </a>
+		    <a class="mui-tab-item">
+		        <div style="border: 0;">
+		        	<span class="mui-tab-label">面积</span>
+		            <span class="mui-icon mui-icon-arrowright mui-pull-right"></span>
+		        </div>
+		    </a>
+		</nav>
+		<script>
+			var aObj = document.getElementsByClassName('mui-tab-item');
+			var sheObj = document.getElementsByClassName('she_tan');
+			var xbdh = document.getElementsByClassName('mui-tab-label');
+			var sheet1 = document.getElementsByClassName('sheet1');
+			var li1 = document.getElementsByClassName('li1');
+			var li2 = document.getElementsByClassName('li2');
+			var li3 = document.getElementsByClassName('li3');
+			var texts = document.querySelector('.mui-title');
+			for(var i = 0 ;i < aObj.length; i++){
+				aObj[i].index = i;
+			}
+			mui('.mui-bar-tab').on('tap','a',function(){
+				var s = this.index;
+				sheObj[s].className = 'she_tan she_dis';
+				//出租
+				mui('#she1').on('tap','li',function(){
+					for(var j = 0; j < li1.length; j++){
+						li1[j].className = 'li1';
+					}
+					this.className='li1 li_color';
+					xbdh[0].innerText = this.innerText;
+//					mui.toast(s)
+                    if(this.innerText =='出售'){
+                    	texts.innerText = '店铺出售'
+                    	mui.toast(texts.innerText)
+                    }else if(this.innerText =='出租'){
+                    	mui.toast('22222')
+                    	texts.innerText = '店铺出租'
+                    }
+					sheObj[s].className = 'she_tan';
+				})
+				
+				//区域
+				mui('#she2').on('tap','li',function(){
+				    for(var j2 = 0; j2 < li2.length; j2++){
+						li2[j2].className = 'li2';
+					}
+				    this.className='li2 li_color';
+					xbdh[1].innerText = this.innerText;
+					sheObj[s].className = 'she_tan';
+					mui.toast(s)
+				})
+				
+				//面积
+				mui('#she3').on('tap','li',function(){
+				    for(var j3 = 0; j3 < li3.length; j3++){
+						li3[j3].className = 'li3';
+					}
+				    this.className='li3 li_color';
+					xbdh[2].innerText = this.innerText;
+					sheObj[s].className = 'she_tan';
+				})
+				
+				sheet1[s].addEventListener('tap',function(){
+					sheObj[s].className = 'she_tan';
+				})
+			})
+		</script>
+		
+	</body>
+
+</html>
+<script>
+	mui.init({
+				pullRefresh: {
+					container: '#refreshContainer',
+					down: {
+						callback: pulldownRefresh
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			var titleObj = document.getElementById('title')
+			function pulldownRefresh() {
+				setTimeout(function() {
+					var table = document.body.querySelector('.mui-table-view');
+					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+//					for (var i = cells.length, len = i + 3; i < len; i++) {
+//						var li = document.createElement('li');
+//						li.className = 'mui-table-view-cell';
+//						li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+//						//下拉刷新，新纪录插到最前面；
+//						table.insertBefore(li, table.firstChild);
+//					}
+					mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 1500);
+			}
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+					mui('#refreshContainer').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+					var table = document.body.querySelector('.mui-table-view');
+					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+					for (var i = cells.length, len = i + 20; i < len; i++) {
+						var li = document.createElement('li');
+						li.innerHTML = '<a href="javascript:; title="龙岗中心万科广场"><img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30"><div class="mui-media-body"><h5>'+'龙岗中心万科广场'
+						+'</h5><div class="body_center"><span>'+'150平方'+'</span><span>'+'龙岗'+'</span><span>'+'临街商铺'+'</span></div><p class="mui-ellipsis"><b>' +
+						'2000' +'</b>'+ '元/月' + '</p><span class="li_fu">'+'07-15'+'</span></a>';
+						table.appendChild(li);
+						
+//						跳转详情页
+//						 mui('li').on('tap','a',function(){
+//							 	mui.toast(11111)
+//							    var title = this.getAttribute('title');
+//							  mui.toast(title)
+//							    mui.openWindow({
+//							    	url: "mine_details.html",
+//							    	id: "mine_details.html",
+//							  	style:{},
+//							    	extras:{
+//							    		title:title
+//							    	},
+//							  	show: {
+//							  		autoShow:true,
+//							  		aniShow:"slide-in-right",
+//							  		duration:100
+//							  	},
+//							  	waiting:{
+//							  		autoShow:true,
+//							  	}
+//						    })
+//						 })
+						 //跳转详情页end
+					}
+				}, 1500);
+			}
+			if (mui.os.plus) {
+				mui.plusReady(function() {
+					setTimeout(function() {
+						mui('#refreshContainer').pullRefresh().pullupLoading();
+					}, 1000);
+					var cw = plus.webview.currentWebview();
+					var titleName = cw.title;
+					titleObj.innerText = titleName;
+					mui.toast(titleName)
+//			        console.log(titleName);
+				});
+			} else {
+				mui.ready(function() {
+					mui('#refreshContainer').pullRefresh().pullupLoading();
+				});
+			}  
+			
+			
+</script>  
+<!--
+<script>
+	mui.plusReady(function(){
+		var cw = plus.webview.currentWebview();
+		var titleName = cw.title;
+//		mui.toast(titleName)
+        console.log(titleName);
+	})
+</script>-->

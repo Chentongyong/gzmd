@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/general.css" />
+		<link rel="stylesheet" href="css/sy_assign2.css" />
+		<script src="js/mui.min.js"></script>
+		<style type="text/css">
+			p {
+				margin: 0;
+			}
+			
+			.mui-table-view .mui-media-object {
+				line-height: 60px;
+				max-width: 80px;
+				height: 60px;
+				width: 80px;
+			}
+			
+			.smjs {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				font-size: 16px;
+				color: #333;
+			}
+			
+			#p_chus {
+				width: 100%;
+				position: fixed;
+				top: 0px;
+				background: #f0f;
+				height: 45px;
+				line-height: 45px;
+			}
+			
+			#p_chus a {
+				width: 33.33%;
+				display: inline-block;
+				margin-right: -4px;
+				color: #fff;
+				text-align: center;
+				font-size: 14px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			
+			#p_chus a .m_rt {
+				line-height: 45px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="margin-top: 45px;">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul class="mui-table-view mui-table-view-chevron">
+
+				</ul>
+			</div>
+			<div id="she1" class="she_tan">
+				<div class="buy">
+					<!--<div class="buy_left">
+						<p class="p_color">求租</p>
+						<p class="">求售</p>
+					</div>-->
+					<div class="buy_right">
+						<ul class="buy_zu">
+							<li class="li_color">全部分类</li>
+							<li>酒楼餐饮</li>
+							<li>美容美发</li>
+							<li>服饰鞋包</li>
+							<li>休闲娱乐</li>
+							<li>百货超市</li>
+							<li>生活服务</li>
+							<li>电子通讯</li>
+							<li>汽修美容</li>
+							<li>医药保健</li>
+							<li>家居建材</li>
+							<li>教育培训</li>
+							<li>空铺转让</li>
+							<li>旅馆宾馆</li>
+							<li>其他行业</li>
+						</ul>
+					</div>
+				</div>
+				<div class="sheet1"></div>
+			</div>
+
+			<!--区域-->
+			<div id="she2" class="she_tan">
+				<!--<div style="position: relative;padding: 5px 0;">-->
+				<ul id="city" class="ul_style">
+					<li class="li2 li_color">全城</li>
+					<li class="li2">海珠区</li>
+					<li class="li2">荔湾区</li>
+					<li class="li2">天河区</li>
+					<li class="li2">番禺区</li>
+				</ul>
+				<!--</div>-->
+				<div class="sheet1"></div>
+			</div>
+
+			<!--面积-->
+			<div id="she3" class="she_tan ">
+				<!--<div style="position: relative;padding: 5px 0;">-->
+				<ul class="ul_style">
+					<li class="li3 li_color">无限</li>
+					<li class="li3">20平方以下</li>
+					<li class="li3">20-50平方</li>
+					<li class="li3">50-100平方</li>
+					<li class="li3">100-200平方</li>
+					<li class="li3">200-500平方</li>
+					<li class="li3">500平方以上</li>
+				</ul>
+				<!--</div>-->
+				<div class="sheet1"></div>
+			</div>
+		</div>
+		<div id="p_chus">
+			<div>
+				<a class="mui-tab-item">
+					<span class="mui-tab-label">全部分类</span>
+					<span class="mui-icon mui-icon-arrowright mui-pull-right m_rt"></span>
+				</a>
+				<a class="mui-tab-item">
+					<span class="mui-tab-label">全城</span>
+					<span class="mui-icon mui-icon-arrowright mui-pull-right m_rt"></span>
+				</a>
+				<a class="mui-tab-item">
+					<span class="mui-tab-label">面积</span>
+					<span class="mui-icon mui-icon-arrowright mui-pull-right m_rt"></span>
+				</a>
+			</div>
+		</div>
+
+	</body>
+
+</html>
+<script src="dist/js/jquery.min.js"></script>
+<script>
+	var pObj = document.getElementById("she1").getElementsByTagName('p');
+	var aObj = document.getElementsByClassName('mui-tab-item');
+	var liObj1 = document.getElementById("she1").getElementsByTagName('li');
+	var span1 = document.getElementsByClassName('mui-tab-label');
+	var sheObj = document.getElementsByClassName('she_tan');
+	var sheet1 = document.getElementsByClassName('sheet1')
+	var jt = document.getElementsByClassName('m_rt');
+	var she2 = document.getElementById('she2');
+	var she3 = document.getElementById('she3');
+	var li2 = document.getElementsByClassName('li2');
+	var li3 = document.getElementsByClassName('li3');
+	var texts = document.getElementById('title');
+	var aa = '';
+	var bb = '';
+	var cc = '';
+	var tels = '';
+	var tltit = '';
+	var uid = '';
+	var sea_inp = '';
+	for(var sum = 0; sum < aObj.length; sum++) {
+		aObj[sum].index = sum;
+	}
+	//显示
+	mui('#p_chus').on('tap', 'a', function() {
+		var s = this.index;
+		for(var i = 0; i < sheObj.length; i++) {
+			sheObj[i].className = 'she_tan';
+			jt[i].className = 'mui-icon mui-icon-arrowright mui-pull-right m_rt';
+		}
+		sheObj[s].className = 'she_tan she_dis';
+		jt[s].className = 'mui-icon mui-icon-arrowup mui-pull-right m_rt';
+
+		//  隐藏
+		sheet1[s].addEventListener('tap', function() {
+			sheObj[s].className = 'she_tan';
+			jt[s].className = 'mui-icon mui-icon-arrowright mui-pull-right m_rt'
+		})
+
+	})
+
+	//  类型 
+	function atye() {
+		for(var u = 0; u < sheObj.length; u++) {
+			sheObj[u].className = 'she_tan';
+		}
+	}
+	//	//      点击左边
+	//	mui('.buy_left').on('tap', 'p', function() {
+	//		for(var j = 0; j < pObj.length; j++) {
+	//			pObj[j].className = ''
+	//		}
+	//		this.className = 'p_color';
+	//		texts.innerText = '商铺'+this.innerText; //替换标题
+	//		console.log(1111)
+	//	})
+	//		点击右边
+	mui('.buy_right').on('tap', 'li', function() {
+		for(var k = 0; k < liObj1.length; k++) {
+			liObj1[k].className = ''
+		}
+		this.className = 'li_color';
+		span1[0].innerText = this.innerText;
+		aa = span1[0].innerText;
+		bb = span1[1].innerText;
+		cc = span1[2].innerText;
+		//		seekStore(aa, bb, cc);
+		//			        sheObj[s].className = 'she_tan';
+		jt[0].className = 'mui-icon mui-icon-arrowright mui-pull-right m_rt';
+		atye()
+	})
+
+	//  区域
+	mui('#she2').on('tap', 'li', function() {
+		for(var j2 = 0; j2 < li2.length; j2++) {
+			li2[j2].className = 'li2';
+		}
+		this.className = 'li2 li_color';
+		span1[1].innerText = this.innerText;
+		aa = span1[0].innerText;
+		bb = span1[1].innerText;
+		cc = span1[2].innerText;
+		//		seekStore(aa, bb, cc);
+		//				sheObj[s].className = 'she_tan';
+		jt[1].className = 'mui-icon mui-icon-arrowright mui-pull-right m_rt';
+		atye()
+	})
+
+	//面积
+	mui('#she3').on('tap', 'li', function() {
+		for(var j3 = 0; j3 < li3.length; j3++) {
+			li3[j3].className = 'li3';
+		}
+		this.className = 'li3 li_color';
+		span1[2].innerText = this.innerText;
+		aa = span1[0].innerText;
+		bb = span1[1].innerText;
+		cc = span1[2].innerText;
+		//		seekStore(aa, bb, cc);
+		//sheObj[s].className = 'she_tan';
+		jt[2].className = 'mui-icon mui-icon-arrowright mui-pull-right m_rt';
+		atye()
+	})
+
+	var last = 15,
+		amount = 1;
+	//	(function() {
+	var boxs = document.getElementById('boxs');
+
+	fn(amount);
+
+	function fn(amount) {
+		mui.init({
+			swipeBack: false,
+			pullRefresh: {
+				container: '#pullrefresh',
+				up: {　　　　
+					contentrefresh: '正在加载...',
+					　　　　callback: pullupRefresh　　　　
+				},
+				down: {
+					contentrefresh: '正在刷新...',
+					callback: pulldownRefresh
+				}　
+			}
+		});
+		mui.ajax({
+			type: "post",
+			dataType: "json",
+			url: "http://192.168.3.5/Store/spApp!query.action?page=" + amount,
+			data: {
+				rows: last,
+			},
+			complete: function() {
+				$("#load").hide();
+			},
+			success: function(msg) {
+				var data = msg;
+				var tmp = '';
+				console.log(data)
+				console.log(amount)
+				var table = document.body.querySelector('.mui-table-view'); //滑动刷新盒子
+				var cells = document.body.querySelectorAll('.mui-table-view-cell'); //滑动刷新盒子
+				$.each(data, function(i, n) {
+					var li = document.createElement('li');
+					li.className = "mui-table-view-cell mui-media";
+					li.innerHTML += '<a id=' + n.spid + ' title="' + n.title + '"><h5>' + n.title + '</h5><div class="ass_center"><span><b>' + data[i].acreage +
+						'</b>' + '平方' + '</span><span>' + data[i].type + '</span><span>' + n.region + '</span></div><p>' + '大家好，我是。。。。' +
+						'<p><span class="li_fu">' + '07-15' + '</span></a>';
+					table.appendChild(li);
+				});
+
+			}
+		});
+	}
+
+	function pullupRefresh() {
+		setTimeout(function() {
+			amount++;
+			fn(amount);
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh(); //refresh completed
+		}, 1000);
+	}
+	if(mui.os.plus) {
+		mui.plusReady(function() {
+			setTimeout(function() {
+				mui('#pullrefresh').pullRefresh().pullupLoading();
+			}, 1000);
+
+		});
+	} else {
+		mui.ready(function() {
+			mui('#pullrefresh').pullRefresh().pullupLoading();
+		});
+	}
+
+	function pulldownRefresh() {
+		setTimeout(function() {
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+		}, 1500);
+	}
+</script>

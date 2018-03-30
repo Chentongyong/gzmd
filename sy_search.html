@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/general.css" />
+		<link rel="stylesheet" href="css/sy_search.css" />
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="mui-title">
+				<i class="mui-icon mui-icon-search"></i>
+				<input id="sea_inp" type="text" placeholder="请输入关键字搜索" />
+			</div>
+			<a id="nav_righr" class="mui-action-back mui-pull-right">取消</a>
+		</header>
+		<div class="mui-content">
+			<!--<div id="search_up">
+				<ul class="mui-table-view"  id="ul_up">
+				        
+				   </ul>
+				   <button type="button">清空浏览记录</button>
+			</div>-->
+			<div id="search_below">
+				<ul class="mui-table-view">
+					<li id="zr" class="mui-table-view-cell">
+						<!--<a class="">
+		                	转让
+		                    <span class="mui-pull-right">1223</span>
+		                </a>-->
+					</li>
+					<li id="cz" class="mui-table-view-cell">
+						<!--<a class="">
+		                	出租
+		                    <span class="mui-pull-right">5844156</span>
+		                </a>-->
+					</li>
+					<li id="cs" class="mui-table-view-cell">
+						<!--<a class="">
+		                	出售
+		                     <span class="mui-pull-right">46884646</span>
+		                </a>-->
+					</li>
+					<li id="qz" class="mui-table-view-cell">
+						<!--<a class="">
+		                	求租
+		                    <span class="mui-pull-right">1324165</span>
+		                </a>-->
+					</li>
+					<li id="qg" class="mui-table-view-cell">
+						<!--<a class="">
+		                	求购
+		                     <span class="mui-pull-right">16454</span>
+		                </a>-->
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script>
+	//			var search_up = document.getElementById('search_up');
+	var search_below = document.getElementById('search_below');
+	var sea_inp = document.getElementById('sea_inp'); //搜索框
+	var nav_righr = document.getElementById('nav_righr');
+	//点击键盘显示
+	mui('.mui-bar-nav').on('keyup', 'input', function() {
+		if(sea_inp.value == '') {
+			//					search_up.style.display = 'block';
+			search_below.style.display = 'none';
+			nav_righr.className = 'mui-action-back mui-pull-right'
+			nav_righr.innerText = '取消';
+		} else {
+			sl();
+			search_below.style.display = 'block';
+			//					search_up.style.display = 'none';
+			nav_righr.className = 'mui-pull-right'
+			nav_righr.innerText = '确定';
+		}
+
+	})
+
+	function sl() {
+		mui.ajax({
+			url: 'http://192.168.3.7:8080/Store/storeactions!zhuanrang.action?store.shoptype=' + sea_inp.value,
+			type: 'post',
+			async: true,
+			dataType: 'json',
+			crossDomain: true, //强制使用5+跨域
+			timeout: '10000',
+			success: function(data) {
+				zr.innerHTML = '<a>转让<span class="mui-pull-right">' + data + '</span></a>';
+			},
+			error: function(xhr, type, errorThrown) {
+				mui.toast("网络出错")
+			}
+		});
+		mui.ajax({
+			url: 'http://192.168.3.7:8080/Store/storeactions!chuzu.action?store.shoptype=' + sea_inp.value,
+			type: 'post',
+			async: true,
+			dataType: 'json',
+			crossDomain: true, //强制使用5+跨域
+			timeout: '10000',
+			success: function(data) {
+				cz.innerHTML = '<a>出租<span class="mui-pull-right">' + data + '</span></a>';
+			},
+			error: function(xhr, type, errorThrown) {
+				mui.toast("网络出错")
+			}
+		});
+		mui.ajax({
+			url: 'http://192.168.3.7:8080/Store/storeactions!chushou.action?store.shoptype=' + sea_inp.value,
+			type: 'post',
+			async: true,
+			dataType: 'json',
+			crossDomain: true, //强制使用5+跨域
+			timeout: '10000',
+			success: function(data) {
+				cs.innerHTML = '<a>出售<span class="mui-pull-right">' + data + '</span></a>';
+			},
+			error: function(xhr, type, errorThrown) {
+				mui.toast("网络出错")
+			}
+		});
+		mui.ajax({
+			url: 'http://192.168.3.7:8080/Store/spApp!qiuzu.action?shopPurchase.type=' + sea_inp.value,
+			type: 'post',
+			async: true,
+			dataType: 'json',
+			crossDomain: true, //强制使用5+跨域
+			timeout: '10000',
+			success: function(data) {
+				qz.innerHTML = '<a>求租<span class="mui-pull-right">' + data + '</span></a>';
+			},
+			error: function(xhr, type, errorThrown) {
+				mui.toast("网络出错")
+			}
+		});
+		mui.ajax({
+			url: 'http://192.168.3.7:8080/Store/spApp!qiugou.action?shopPurchase.type=' + sea_inp.value,
+			type: 'post',
+			async: true,
+			dataType: 'json',
+			crossDomain: true, //强制使用5+跨域
+			timeout: '10000',
+			success: function(data) {
+				qg.innerHTML = '<a>求购<span class="mui-pull-right">' + data + '</span></a>';
+			},
+			error: function(xhr, type, errorThrown) {
+				mui.toast("网络出错")
+			}
+		});
+	}
+
+	var city_text = '';
+	//给mine.html传值
+	mui.plusReady(function() {
+		window.addEventListener('newsId', function(es) {
+			city_text = es.detail.city_text;
+		})
+		
+		//转让
+		var zr = document.getElementById('zr');
+		var detailPage = mui.preload({ url: 'sy_assign.html', id: 'sy_assign.html' })
+		zr.addEventListener('tap', function(e) {
+			mui.fire(detailPage, 'newsId', {tltit:'商铺转让',city_text:city_text,sea_inp:sea_inp.value});
+			mui.openWindow({ url: 'sy_assign.html', id: 'sy_assign.html' })
+		})
+		//出租
+		var cz = document.getElementById('cz');
+		var detailPage1 = mui.preload({ url: 'sy_assign.html', id: 'sy_assign.html' })
+		cz.addEventListener('tap', function(e) {
+			mui.fire(detailPage1, 'newsId', {tltit:'商铺出租',city_text:city_text,sea_inp:sea_inp.value});
+			mui.openWindow({ url: 'msy_assign.html', id: 'sy_assign.html' })
+		})
+		//出售
+		var cs = document.getElementById('cs');
+		var detailPage2 = mui.preload({ url: 'sy_assign.html', id: 'sy_assign.html' })
+		cs.addEventListener('tap', function(e) {
+			mui.fire(detailPage2, 'newsId', {tltit:'商铺出售',city_text:city_text,sea_inp:sea_inp.value});
+			mui.openWindow({ url: 'sy_assign.html', id: 'sy_assign.html' })
+		})
+		//求租
+		var qz = document.getElementById('qz');
+		var detailPage3 = mui.preload({ url: 'sy_assign2_1.html', id: 'sy_assign2_1.html' })
+		qz.addEventListener('tap', function(e) {
+			mui.fire(detailPage3, 'newsId', {tltit:'店铺求租',city_text:city_text,sea_inp:sea_inp.value});
+			mui.openWindow({ url: 'sy_assign2_1.html', id: 'sy_assign2_1.html' })
+		})
+		//求购
+		var qg = document.getElementById('qg');
+		var detailPage4 = mui.preload({ url: 'sy_assign2_1.html', id: 'sy_assign2_1.html' })
+		qg.addEventListener('tap', function(e) {
+			mui.fire(detailPage4, 'newsId', {tltit:'店铺求售',city_text:city_text,sea_inp:sea_inp.value});
+			mui.openWindow({ url: 'sy_assign2_1.html', id: 'sy_assign2_1.html' })
+		})
+
+	});
+</script>

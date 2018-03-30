@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/general.css" />
+		<link rel="stylesheet" href="css/mine_collect.css" />
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的收藏</h1>
+		    <a id="a_di" class="mui-icon mui-pull-right">编辑</a>
+		</header>
+		<div class="mui-content">
+		    <ul id="collect" class="wdsc">
+		    	<!--<li id="libox">
+		    		<div class="col_left">
+					    <i id="iBox" class=""></i>
+				    </div>
+		    	    <a href="" title="求租关内大型酒店" style="display: inline-block;width: 80%;">
+					    <div class="col_right">
+					    	<p>求租关内大型酒店</p>
+					    	<span>商铺求租</span>
+					    </div>
+		    	    </a>
+		    	</li>
+		    	<li id="libox">
+		    	   	<div class="col_left">
+					    <i id="iBox" class=""></i>
+				    </div>
+				    <a href="" title="求租关内大型酒店">
+					    <div class="col_right">
+					    	<p>求租关内大型酒店</p>
+					    	<span>商铺求租</span>
+					    </div>
+		    	    </a>
+		    	</li>-->
+		    </ul>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+		    <div class="nav_left div_color">全选</div>
+			<div id="remove" class="nav_right">删除</div>
+		</nav>
+	</body>
+
+</html>
+<script>
+    var collect = document.getElementById('collect');
+	var col_left = document.getElementsByClassName('col_left');
+	var iBox = document.getElementsByTagName('i');
+	var remove = document.getElementById('remove');
+	var liObj = document.getElementsByTagName('li');
+	var libox  = document.getElementById('libox');
+	plusReady();
+	function plusReady(){
+		var cw = plus.webview.currentWebview();
+		tels=cw.tel;
+		uids=cw.uid;
+		mui.ajax({
+			url:'http://192.168.3.7:8080/Store/appclt!Collection.action?u.uid='+uids,
+			type:'post',
+			async: true,
+		    dataType: 'json',
+		    crossDomain: true, //强制使用5+跨域
+		    timeout:'10000',
+			success:function(data){
+				if(data!=null){
+					for(var i = 0; i<data.length;i++){
+						var li = document.createElement('li');
+					    li.style.padding = '10px';
+						li.innerHTML += '<div class="col_left"><i id="iBox '+data[i].cid+'" class="colle"></i></div><a id=' + data[i].sid + ' title="'+data[i].sname+'"><div class="col_right"><p>'+data[i].sname
+							+'</p>'+'<span>'+data[i].typead+'</span></div></a>';
+						collect.appendChild(li);
+					}
+				}
+				//删除数据
+				mui('nav').on('tap','.nav_right',function(){
+					var cid = this.getAttribute('id');
+					console.log(cid)
+					/*mui.ajax({
+						url:'http://192.168.3.7:8080/Store/appclt!my_delete.action?cl.cid='+cid,
+						type:'post',
+						async: true,
+					    dataType: 'json',
+					    crossDomain: true, //强制使用5+跨域
+					    timeout:'10000',
+						success:function(data){
+							mui.toast("删除成功")
+							var wobj = plus.webview.getWebviewById("mine_collect.html");
+							wobj.reload(true);
+						},
+						error:function(xhr, type, errorThrown){
+							mui.toast("网络出错")
+						}
+					});*/
+				});
+			},
+			error:function(xhr, type, errorThrown){
+				mui.toast("网络延迟")
+			}
+		});
+		
+		//跳转详情页
+		mui('.wdsc').on('tap','a',function(){
+			var title = this.getAttribute('title');
+			var sid = this.getAttribute('id');
+			var detailPage = mui.preload({ url: 'mine_details.html', id: 'mine_details.html' })
+			mui.fire(detailPage, 'newsId', {uid: uids,title:title,sid:sid});
+			mui.openWindow({ url: 'mine_details.html', id: 'mine_details.html'})
+		})
+	}
+	//点击显示
+	mui('.mui-bar-nav').on('tap','.mui-pull-right',function(){
+//		alert(1111)
+		for(var i = 0 ;i < col_left.length;i++){
+			if(col_left[i].className=='col_left ows'){
+				col_left[i].className = 'col_left';
+				this.innerText = '编辑'
+			}else{
+				col_left[i].className = 'col_left ows';
+				this.innerText = '完成'
+			}
+		}
+		
+		//单个选中与取消
+//		for(var a = 0;a < col_left.length;a++){
+//			col_left[a].index = a;
+//		}
+		mui('li').on('tap','.col_left',function(){
+			for(var a = 0;a < col_left.length;a++){
+			col_left[a].index = a;
+		}
+			var k = this.index;
+			mui.toast(k)
+			if(iBox[k].className=='mui-icon mui-icon-checkmarkempty'){
+				iBox[k].className = ''
+				remove.className='nav_right'
+			}else{
+				iBox[k].className = 'mui-icon mui-icon-checkmarkempty'
+				remove.className='div_color'
+			}
+			//删除
+			web();
+		})
+		
+		//选中所有
+		mui('.mui-bar-tab').on('tap','.nav_left',function(){
+			for(var j = 0; j < iBox.length;j++){
+				if(iBox[j].className=='mui-icon mui-icon-checkmarkempty'){
+					iBox[j].className = '';
+					remove.className='nav_right'
+				}else{
+					iBox[j].className = 'mui-icon mui-icon-checkmarkempty';
+					remove.className='div_color'
+				}
+				//删除
+			    web();
+			}
+		})
+		
+		var web = function (){
+			//删除
+		    if(remove.className=='div_color'){
+		    	remove.addEventListener('tap',function(){
+		    		for(var k = 0 ; k < iBox.length; k++){
+		    			if(iBox[k].className=='mui-icon mui-icon-checkmarkempty'){
+		    				collect.removeChild(liObj[k]);
+		    				remove.className=''
+		    			}
+		    		}
+		    	})
+		    }
+		}
+	})
+
+</script>

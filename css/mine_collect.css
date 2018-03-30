@@ -1,0 +1,89 @@
+.mui-bar .mui-pull-right{
+	line-height: 24px;
+	font-size: 14px;
+	color: #fff;
+}
+.mui-content{
+	background: #fff;
+}
+#collect{
+	margin: 0;
+	padding: 0;
+}
+#collect li{
+	border-bottom:1px solid #ccc;
+	padding: 10px;
+}
+/*#collect li a{
+	display: inline-block;
+}*/
+#collect li .col_left{
+	display: none;
+	width: 24px;
+	height: 24px;
+	border: 1px solid #f0f;
+	border-radius: 50%;
+	vertical-align:top;
+	margin-right: 5px;
+	position: relative;
+	top: 15px;
+}
+#collect li .col_left.ows{
+	display: inline-block;
+}
+#collect li .col_left i{
+	font-weight: 600;
+	color: #f0f;
+}
+#shows.left_dis{
+	display: inline-block;
+}
+#collect a{
+	display: inline-block;
+	width: 80%;
+}
+#collect .col_right{
+	display: inline-block;
+}
+#collect .col_right p{
+	font-size: 16px;
+	color: #666;
+}
+#collect .col_right span{
+	font-size: 14px;
+	color: #666;
+	font-weight: 400;
+}
+
+/*底部导航栏*/
+.mui-bar-tab{
+	background: #fff;
+	padding: 5px 10px;
+	height: 40px;
+}
+.mui-bar-tab div{
+	display: inline-block;
+	width: 47%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background: #ccc;
+	color: #fff;
+	font-size: 16px;
+	padding-right: -4px;
+	/*border-radius: 5px;*/
+}
+/*.mui-bar-tab div.div_color{
+	background: #f0f;
+}*/
+.mui-bar-tab .nav_left{
+	margin-right: 3%;
+	background: #f0f;
+}
+.mui-bar-tab .nav_right{
+	margin-left: 3%;
+}
+.mui-bar-tab div.div_color{
+	background: #f0f;
+}
+/*底部导航栏end*/

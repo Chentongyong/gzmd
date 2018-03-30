@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>产品介绍</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/general.css" />
+		<link rel="stylesheet" href="css/sy_carousel.css" />
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
+		    <h1 class="mui-title">产品介绍</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="member">
+		    	<img src="images/g3.jpg" alt=""/>
+		    	<div class="introduce">
+		    		<h4>产品种类</h4>
+			    	<div class="int_box" style="margin-top: 10px;">
+			    		<h5>普通用户（<span id="puto"></span>）人</h5>
+			    		<i id="i_box1" class="mui-icon mui-icon-arrowright mui-pull-right"></i>
+			    		<span id="span1">横看成岭侧成峰，远近高低各不同。不识庐山正面目，只缘身在此山中</span>
+			    	</div>
+			    	<div class="int_box">
+			    		<h5>华夏商铺VIP会员（<span id="vip"></span>）人</h5>
+			    		<i id="i_box2" class="mui-icon mui-icon-arrowright mui-pull-right"></i>
+			    		<span id="span2">
+			    			毕竟西湖六月中，风光不与四时同。接天莲叶无穷碧，映日荷花别样红。
+			    		</span>
+			    		<ul>
+			    			<li>
+			    				<span>月套餐&nbsp;&nbsp;(&nbsp;<b>39元</b>&nbsp;)</span>
+			    			</li>
+			    			<li>
+			    				<span>半年套餐&nbsp;&nbsp;(&nbsp;<b>139元</b>&nbsp;)</span>
+			    			</li>
+			    			<li>
+			    				<span>全年套餐&nbsp;&nbsp;(&nbsp;<b>360元</b>&nbsp;)</span>
+			    			</li>
+			    		</ul>
+			    	</div>
+		    	</div>
+		    </div>
+		</div>
+	</body>
+
+</html>
+<script>
+	var span1 = document.getElementById('span1');
+	var span2 = document.getElementById('span2');
+	mui('.int_box').on('tap','#i_box1',function(){
+		if(this.className=='mui-icon mui-icon-arrowright mui-pull-right'){
+			this.className = 'mui-icon mui-icon-arrowdown mui-pull-right';
+		}else{
+			this.className = 'mui-icon mui-icon-arrowright mui-pull-right';
+		}
+		if(span1.className=='sp_dis'){
+			span1.className = ''
+		}else{
+			span1.className = 'sp_dis'
+		}
+	})
+	
+	mui('.int_box').on('tap','#i_box2',function(){
+		if(this.className=='mui-icon mui-icon-arrowright mui-pull-right'){
+			this.className = 'mui-icon mui-icon-arrowdown mui-pull-right';
+		}else{
+			this.className = 'mui-icon mui-icon-arrowright mui-pull-right';
+		}
+		if(span2.className=='sp_dis'){
+			span2.className = ''
+		}else{
+			span2.className = 'sp_dis'
+		}
+	})
+	
+	
+	function  querymember(){
+		mui.ajax({
+					url: "http://192.168.0.105:8080/Store/appuser!Utateal.action",
+					type: 'post',
+					async: true,
+					dataType: 'json',
+					crossDomain: true, //强制使用5+跨域
+					timeout: '10000',
+					success: function(data) {
+						
+						var  puto=document.getElementById("puto");
+						puto.innerText=data;
+						
+					},
+					error: function(xhr, type, errorThrown) {
+						//					mui.toast(2222)
+					}
+				});
+				
+				mui.ajax({
+					url: "http://192.168.0.105:8080/Store/appuser!rzkh.action?u.verCode="+2,
+					type: 'post',
+					async: true,
+					dataType: 'json',
+					crossDomain: true, //强制使用5+跨域
+					timeout: '10000',
+					success: function(data) {
+						var  vip=document.getElementById("vip");
+						vip.innerText=data;
+					},
+					error: function(xhr, type, errorThrown) {
+						//					mui.toast(2222)
+					}
+				});
+		
+	}
+	querymember();
+</script>

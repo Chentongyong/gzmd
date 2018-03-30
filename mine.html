@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/mine.css" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">我的</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="mune_up" style="text-align: center;position: relative;">
+		    	<div id="dlBox" class="register">
+		    		<h2 class="mui-pull-left">登录你的华夏商铺账号</h2 >
+			    	<a class="mui-pull-left"><i class="mui-icon mui-icon-arrowright"></i></a>
+		    	</div>
+		    	<p id="P_zh" style="display: inline-block;width: 160px;text-align: center;"></p>
+		    	<span id="huiYuan" class="iconfont icon-huiyuan"></span>
+		    	<div id="hy_sh" style="display: none;">
+		    		<ul class="members">
+			    		<li>
+			    			<div>月套餐：<b>39</b><span>元/月</span></div>
+			    			<i></i>
+			    		</li>
+			    		<li>
+			    			<div>半年套餐：<b>139</b><span>元/月</span></div>
+			    			<i></i>
+			    		</li>
+			    		<li>
+			    			<div>全年套餐：<b>360</b><span>元/月</span></div>
+			    			<i></i>
+			    		</li>
+			    		
+			    		<li>
+			    			<h4>支付方式：</h4>
+			    			<button type="button" class="mui-btn mui-btn-outlined butt1">支付宝</button>
+			    			<button type="button" class="mui-btn mui-btn-outlined butt2">微信</button>
+			    			<!--<button type="button" class="mui-btn mui-btn-outlined butt3">银行卡</button>-->
+			    		</li>
+			    	</ul>
+			    	<div id="mem_fu"></div>
+		    	</div>
+		    </div>
+		    
+		    <ul class="mui-table-view">
+		        <li class="mui-table-view-cell mui-media li1">
+		            <a href="javascript:;">
+		                <i class="mui-media-object mui-pull-left mui-icon mui-icon-star"></i>
+		                <div class="mui-media-body">
+		                    <span class="mui-ellipsis">我的收藏</span>
+		                </div>
+		            </a>
+		        </li>
+		        
+		        <li class="mui-table-view-cell mui-media li2">
+		            <a href="javascript:;">
+		                <i class="mui-media-object mui-pull-left mui-icon mui-icon-compose"></i>
+		                <div class="mui-media-body">
+		                    <span class="mui-ellipsis">我的发布</span>
+		                </div>
+		            </a>
+		        </li>
+		        
+		        <li class="mui-table-view-cell mui-media li3">
+		            <a href="javascript:;">
+		                <i class="mui-media-object mui-pull-left mui-icon mui-icon-loop"></i>
+		                <div class="mui-media-body">
+		                    <span class="mui-ellipsis">浏览记录</span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media li4">
+		            <a href="javascript:;">
+		                <i class="mui-media-object mui-pull-left mui-icon mui-icon-gear"></i>
+		                <div class="mui-media-body">
+		                    <span class="mui-ellipsis">设置</span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media li5">
+		            <a href="javascript:;">
+		                <i class="mui-media-object mui-pull-left mui-icon mui-icon-chat"></i>
+		                <div class="mui-media-body">
+		                    <span class="mui-ellipsis">意见反馈</span>
+		                </div>
+		            </a>
+		        </li>
+		    </ul>
+		</div>
+		<!--底部导航-->
+		<nav class="mui-bar mui-bar-tab">
+		    <a id="shouye" class="mui-tab-item">
+		        <span class="mui-icon mui-icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a id="gongsi" class="mui-tab-item">
+		        <span class="mui-icon mui-icon-chatboxes"></span>
+		        <span class="mui-tab-label">公司介绍</span>
+		    </a>
+		    <a id="fabu" class="mui-tab-item">
+		        <span class="mui-icon mui-icon-compose"></span>
+		        <span class="mui-tab-label">发布</span>
+		    </a>
+		    <a id="" class="mui-tab-item" style="color: #f0f;">
+		        <span class="iconfont icon-home"></span>
+		        <span class="mui-tab-label">我的</span>
+		    </a>
+		</nav>
+	    <!--底部导航end-->
+	</body>
+</html>
+<script src="js/index.js"></script>
+<script>
+	var p_zh = document.getElementById('P_zh');//账号
+	var dlBox = document.getElementById('dlBox');//点击登录
+	var huiYuan = document.getElementById('huiYuan');//会员
+	var hy_sh = document.getElementById('hy_sh');//充值会员的显示与隐藏
+	var mem_fu = document.getElementById('mem_fu');//遮罩层
+	var iObj = hy_sh.getElementsByTagName('i');
+	
+	mui.plusReady(function(){
+		var uid='';
+		var tel='';
+		var pwd='';
+		var member='';
+		window.addEventListener('newsId',function(m){
+			tel=m.detail.tel;
+			pwd=m.detail.pwd;
+			uid=m.detail.uid;
+			member=m.detail.member;
+			city_text = m.detail.city_text;
+			if(tel !=null && tel != '' ){
+				p_zh.innerText=tel;
+				dlBox.style.display = 'none';
+				huiYuan.style.display = 'inline-block';
+				
+			}else{
+				dlBox.style.display = 'block';
+                huiYuan.style.display = 'none';
+				p_zh.innerTex='';
+			}
+			if(member==2){
+				huiYuan.style.color = '#FFFF00'
+			}else{
+				huiYuan.style.color = '#FFF'
+			}
+		})
+		var detailPage = mui.preload({url:'index.html',id:'index.html'})
+		mui('#shouye').on('tap','span',function(e){
+			mui.fire(detailPage,'newsId',{tel:tel,uid:uid,member:member,city_text:city_text});
+			mui.openWindow({url:'index.html',id:'index.html'})
+		})
+		var detailPage1 = mui.preload({url:'examine.html',id:'examine.html'})
+		mui('#gongsi').on('tap','span',function(e){
+			mui.fire(detailPage1,'newsId',{tel:tel,uid:uid,member:member,city_text:city_text});
+			mui.openWindow({url:'examine.html',id:'examine.html'})
+		})
+		var detailPage2 = mui.preload({url:'issue.html',id:'issue.html'})
+		mui('#fabu').on('tap','span',function(e){
+			mui.fire(detailPage2,'newsId',{tel:tel,uid:uid,member:member,city_text:city_text});
+			mui.openWindow({url:'issue.html',id:'issue.html'})
+		})
+		
+		//	点击弹出充值会员
+    huiYuan.addEventListener('tap',function(){
+    	hy_sh.style.display = 'block';
+    	mui.toast(1111)  	
+   })
+    //关闭会员充值弹窗
+    mem_fu.addEventListener('tap',function(){
+    	hy_sh.style.display = 'none';
+    })
+    
+    //选择会员套餐
+    mui('.members').on('tap','i',function(){
+    	for(var j = 0 ;j < iObj.length ;j++){
+    		iObj[j].className = '';
+    	}
+    	this.className = 'mui-icon mui-icon-checkmarkempty';
+    })
+    
+    //确认会员选择
+    mui('li').on('tap','.butt1',function(){
+    	mui.toast('支付宝支付')
+    	hy_sh.style.display = 'none';
+    	huiYuan.style.color = '#FFFF00'
+    })
+    
+    //取消会员选择
+    mui('li').on('tap','.butt2',function(){
+    	mui.toast('微信支付')
+    	hy_sh.style.display = 'none';
+    	huiYuan.style.color = '#FFFF00';
+    })
+    
+	//跳转登录页面
+	var denglu = function(){
+		mui.openWindow({
+			url:'mine_register.html',
+			id:'mine_register.html',
+			style:{},
+			show:{
+			    autoShow:true,
+				aniShow:"slide-in-right,",
+				duration:100
+			},
+			waiting:{
+				autoShow:true,
+				title:"正在加载...",
+				options:{
+					//width:
+					//height:
+					}
+			}			
+		})
+	}
+	mui('.mune_up').on('tap','.register',function(){
+		denglu();
+	})
+	
+	//跳转收藏页面
+	 mui('.mui-table-view').on('tap','.li1',function(){
+		if(p_zh.innerText!==''){
+    		mui.openWindow({
+		    	url: "mine_collect.html",
+		    	id: "mine_collect.html",
+		    	style:{},
+		    	extras:{
+		    		uid:uid,
+		    		tel:tel
+		    	},
+		    	show: {
+		    		autoShow:true,
+		    		aniShow:"slide-in-right",
+		    		duration:100
+		    	},
+		    })
+       		/*var detailPage4 = mui.preload({ url: 'mine_mopp.html', id: 'mine_mopp.html' })
+			mui.fire(detailPage4, 'newsId', {uid: uid});
+			mui.openWindow({ url: 'mine_mopp.html', id: 'mine_mopp.html' })*/
+	    }else{
+			denglu();
+		}
+	})
+    /*mui('.mui-table-view').on('tap','.li1',function(){
+		if(p_zh.innerText!==''){
+			var detailPage3 = mui.preload({ url: 'mine_collect.html', id: 'mine_collect.html' })
+			mui.fire(detailPage3, 'newsId', {uid: uid,tel:tel});
+			mui.openWindow({ url: 'mine_collect.html', id: 'mine_collect.html' })
+		}else{
+			denglu();
+		}
+	})*/    
+    //跳转发布页面
+    mui('.mui-table-view').on('tap','.li2',function(){
+    	if(p_zh.innerText!==''){
+    		mui.openWindow({
+		    	url: "mine_mopp.html",
+		    	id: "mine_mopp.html",
+		    	style:{},
+		    	extras:{
+		    		uid:uid
+		    	},
+		    	show: {
+		    		autoShow:true,
+		    		aniShow:"slide-in-right",
+		    		duration:100
+		    	},
+		    })
+       		/*var detailPage4 = mui.preload({ url: 'mine_mopp.html', id: 'mine_mopp.html' })
+			mui.fire(detailPage4, 'newsId', {uid: uid});
+			mui.openWindow({ url: 'mine_mopp.html', id: 'mine_mopp.html' })*/
+	    }else{
+			denglu();
+		}
+	})
+
+//  跳转浏览记录页面
+    mui('.mui-table-view').on('tap','.li3',function(){
+    	if(p_zh.innerText!==''){
+    		mui.openWindow({
+		    	url: "mine_cookies.html",
+		    	id: "mine_cookies.html",
+		    	style:{},
+		    	extras:{
+		    		uid:uid
+		    	},
+		    	show: {
+		    		autoShow:true,
+		    		aniShow:"slide-in-right",
+		    		duration:100
+		    	},
+		    })
+    		/*var detailPage5 = mui.preload({ url: 'mine_cookies.html', id: 'mine_cookies.html' })
+			mui.fire(detailPage5, 'newsId', {uid: uid});
+			mui.openWindow({ url: 'mine_cookies.html', id: 'mine_cookies.html' })*/
+        }else{
+			denglu();
+		}
+    })
+    
+	//  跳转意见反馈页面
+    mui('.mui-table-view').on('tap','.li5',function(){
+	    if(p_zh.innerText!==''){
+	    	var detailPage6 = mui.preload({ url: 'mine_feedback.html', id: 'mine_feedback.html' })
+			mui.fire(detailPage6, 'newsId', {uid: uid,tel:tel,member:member});
+			mui.openWindow({ url: 'mine_feedback.html', id: 'mine_feedback.html' })
+        }else{
+			denglu();
+		}
+    })
+        
+//  点击跳转设置页面
+    mui('.mui-table-view').on('tap','.li4',function(){
+    	var detailPage7 = mui.preload({ url: 'mine_cache.html', id: 'mine_cache.html' })
+		mui.fire(detailPage7, 'newsId', {uid: uid,tel: tel,pwd: pwd});
+		mui.openWindow({ url: 'mine_cache.html', id: 'mine_cache.html' })
+	})
+	})
+
+</script>

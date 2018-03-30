@@ -1,0 +1,163 @@
+/*添加图片*/
+.picture{
+	padding: 10px ;
+	text-align: center;
+	margin: 0 auto;
+	position: relative;
+	border-bottom: 1px solid #ccc;
+}
+.picture .dynamic_images{
+	/*height: 100px;*/
+}
+.picture .dynamic_images .dynamie_up{
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	line-height: 80px;
+	margin-bottom: 5px;
+}
+.picture .dynamic_images .dynamie_up span{
+	display: block;
+	font-size: 68px;
+}
+.picture .dynamic_images ul{
+	/*height: 100px;*/
+	text-align: left;
+	padding: 0;
+	margin: 0;
+}
+
+.picture .dynamic_images ul li{
+	width:23% ;
+	height: 100px;
+	display: inline-block;
+}
+.picture .dynamic_images ul li img{
+	width: 100%;
+	height: 100px;
+}
+/*添加图片end*/
+
+/*类型*/
+#suspend{
+   width: 100%;
+   display: none;
+ }
+ #suspend.sus_dis{
+ 	display: block;
+ }
+#suspend ul{
+	width: 94%;
+	padding: 20px 10px;
+    position: absolute;
+    background: #fff;
+	/*color: #fff;*/
+	z-index: 9999;
+	top: 0;
+}
+#suspend ul li{
+	padding: 10px;
+	color: #666;
+	border-bottom: 1px solid #ccc;
+}
+#shade{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background: #929292;
+	top: 0;
+	left: 0;
+	z-index: 11;
+	opacity: .5;
+}
+/*类型end*/
+
+/*描述*/
+#describe{
+   width: 100%;
+   display: none;
+}
+#describe.des_dis{
+ 	display: block;
+ }
+#describe .des_nei{
+	width: 94%;
+	padding: 20px 10px;
+    position: absolute;
+    background: #fff;
+	/*color: #fff;*/
+	z-index: 9999;
+	top: 0;
+}
+#describe .des_nei textarea{
+	height: 300px;
+	overflow: hidden;
+	font-size: 14px;
+	padding: 0;
+}
+#describe .des_nei .nei_sm{
+	height: 30px;
+}
+#describe .des_nei .nei_sm .mui-pull-left{
+	font-size: 12px;
+}
+#i_color{
+	color: #f0f;
+	font-style: normal;
+}
+#describe .des_nei .nei_sm .mui-pull-right .mui-icon-trash{
+	color: #666;
+}
+#describe .des_nei button{
+	width: 100%;
+	height: 30px;
+	background: #f0f;
+	border: 1px solid #f0f;
+	color: #fff;
+	margin-top: 10px;
+}
+/*描述end*/
+
+/*身份*/
+#identity{
+	width: 50%;
+	height: 30px;
+	text-indent: 1em;
+	overflow: hidden;
+	margin: 0 auto;
+	padding: 5px 0;
+}
+#identity span{
+	width: 50%;
+	border: 1px solid firebrick;
+	box-sizing: border-box;
+	display: inline-block;
+	float: left;
+	color: firebrick;
+	line-height: 20px;
+	text-align: center;
+}
+#identity span.span_color{
+	background: firebrick;
+	color: #fff;
+}
+/*身份end*/
+
+.mui-input-group .smsy{
+	border-bottom: 1px solid #ccc;
+	text-align: center;
+	padding: 15px 10px 20px 10px;
+}
+#but{
+	border: 1px solid #f0f;
+	width: 100%;
+	height: 30px;
+	color: #fff;
+	letter-spacing:0.5em;
+	text-align: center;
+	background: #f0f;
+	position: relative;
+	top: 5px;
+	bottom: 5px;
+}

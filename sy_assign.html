@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/general.css" />
+		<link rel="stylesheet" href="css/sy_assign.css" />
+		<script src="js/mui.min.js"></script>
+		<script src="dist/js/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="margin-top: 45px;">
+
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul id="boxs" class="mui-table-view mui-table-view-chevron">
+
+				</ul>
+			</div>
+			<!--出租-->
+			<div id="she1" class="she_tan">
+				<ul>
+					<li class="li1 li_color">出租</li>
+					<li class="li1">出售</li>
+				</ul>
+				<div class="sheet1"></div>
+			</div>
+
+			<!--区域-->
+			<div id="she2" class="she_tan">
+				<ul id="city">
+					<li class="li2 li_color">全城</li>
+					<li class="li2">海珠区</li>
+					<li class="li2">荔湾区</li>
+					<li class="li2">天河区</li>
+					<li class="li2">番禺区</li>
+				</ul>
+				<div class="sheet1"></div>
+			</div>
+
+			<!--面积-->
+			<div id="she3" class="she_tan ">
+				<ul>
+					<li class="li3 li_color">无限</li>
+					<li class="li3">20平方以下</li>
+					<li class="li3">20-50平方</li>
+					<li class="li3">50-100平方</li>
+					<li class="li3">100-200平方</li>
+					<li class="li3">200-500平方</li>
+					<li class="li3">500平方以上</li>
+				</ul>
+				<div class="sheet1"></div>
+			</div>
+		</div>
+
+		<div id="navs" class="">
+			<a class="mui-tab-item">
+				<div>
+					<span id="chus" class="mui-tab-label">出租</span>
+					<span class="mui-icon mui-icon-arrowright mui-pull-right m_jt"></span>
+				</div>
+			</a>
+			<a class="mui-tab-item">
+				<div>
+					<span class="mui-tab-label">全城</span>
+					<span class="mui-icon mui-icon-arrowright mui-pull-right m_jt"></span>
+				</div>
+			</a>
+			<a class="mui-tab-item">
+				<div style="border: 0;">
+					<span class="mui-tab-label">面积</span>
+					<span class="mui-icon mui-icon-arrowright mui-pull-right m_jt"></span>
+				</div>
+			</a>
+		</div>
+		<span id="shi" style="display: none;"></span>
+		<div id="h_tit" class="mui-title" style="display: none;"></div>
+	</body>
+
+</html>
+<script>
+//	mui.plusReady(function(){
+//	    var self = plus.webview.currentWebview();
+////	    var name = self.name;//获得参数
+//      console.log(self.aas);
+//      console.log(self.bbs);
+//      console.log(self.dds);
+//      console.log(self.ccs);
+//	});
+	var aObj = document.getElementsByClassName('mui-tab-item'); //分类（出租、全城、面积）
+	var sheObj = document.getElementsByClassName('she_tan'); //分类二级菜单
+	var xbdh = document.getElementsByClassName('mui-tab-label'); //分类
+	var sheet1 = document.getElementsByClassName('sheet1'); //遮罩层
+	var jt = document.getElementsByClassName('m_jt'); //箭头
+	var li1 = document.getElementsByClassName('li1'); //出租二级菜单
+	var li2 = document.getElementsByClassName('li2'); //全城二级菜单
+	var li3 = document.getElementsByClassName('li3'); //面积二级菜单
+	var boxs = document.getElementById('boxs')
+	//	aa是出租出售   bb是地区   cc是面积
+	var aa = '';
+	var bb = '';
+	var cc = '';
+	var uid = '';
+	var tltit = '';
+	var sea_inp = '';
+	var shis = document.getElementById('shi'); //当前城市s
+	var texts = document.querySelector('.mui-title');
+	var title = document.getElementById('h_tit');
+	var last = 15, //数据一次性加载条数
+		amount = 1; //数据加载页码
+	var store = {};
+
+	mui.plusReady(function() { //预加载获取数据
+		window.addEventListener('newsId', function(es) {
+			city_text = es.detail.city_text;
+			tltit = es.detail.tltit;
+			uid = es.detail.uid;
+			shis.innerText = city_text;
+			title.innerText = tltit;
+			sea_inp = es.detail.sea_inp;
+			alert(city_text)
+			mui.ajax({ //根据市查找区
+				url: "http://192.168.3.7:8080/Store/cityaction!main.action?store.city=" + city_text,
+				type: 'post',
+				async: true,
+				dataType: 'json',
+				crossDomain: true, //强制使用5+跨域
+				timeout: '10000',
+				success: function(data) {
+					var city = document.getElementById('city');
+					city.innerHTML = '';
+					for(var i = 0; i < data.length; i++) {
+						var li = document.createElement('li'); //创建元素节点
+						li.innerHTML += data[i].text;
+						city.appendChild(li);
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					mui.toast("请重新刷新")
+				}
+			})
+		})
+		window.addEventListener('newsId', stack) //监听事件
+	})
+
+	function stack() { //按条件数据匹配
+		var title = texts.innerText;
+		var shi = shis.innerText;
+		//var shis = document.getElementById('shi').innerText; //当前城市s
+		//var title = document.getElementById('h_tit').innerText;
+
+		if(title == "商铺转让") {
+			store = {
+				"store.typead": "转让",
+				"store.address": shi,
+				"page": 1
+
+			};
+			//			amount = 1;
+		}
+		if(title == "商铺出租") {
+			store = {
+				"store.typead": "出租",
+				"store.address": shi,
+				"page": 1
+			};
+			//			amount = 1;
+		}
+		if(title == "商铺出售") {
+			store = {
+				"store.typead": "出售",
+				"store.address": shi,
+				"page": 1
+			};
+			//			amount = 1;
+		}
+		VisitBackstage(store);
+	}
+
+	//aa是出租出售   bb是地区   cc是面积
+	function judge(aa, bb, cc) {
+		console.log(aa, bb, cc)
+		var shi = document.getElementById('shi').innerText;
+
+		if(bb == "全城" && cc == "面积") {
+			store = {
+				"store.typead": aa,
+				"store.address": shi,
+				"page": 1
+			};
+			//			amount = 1;
+		}
+		if(bb != "全城" && cc == "面积") {
+			store = {
+				"store.typead": aa,
+				"store.address": shi + bb,
+				"page": 1
+			};
+			//			amount = 1;
+		}
+		if(bb == "全城" && cc != "面积") {
+			switch(cc) {
+				case "无限":
+					store = {
+						"store.typead": aa,
+						"store.address": shi,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "20平方以下":
+					store = {
+						"store.typead": aa,
+						"store.address": shi,
+						"store.square": 20,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "20-50平方":
+					store = {
+						"store.typead": aa,
+						"store.address": shi,
+						"store.square": 20,
+						"store.addreaa": 50,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "50-100平方":
+					store = {
+						"store.typead": aa,
+						"store.address": shi,
+						"store.square": 50,
+						"store.addreaa": 100,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "100-200平方":
+					store = {
+						"store.typead": aa,
+						"store.address": shi,
+						"store.square": 100,
+						"store.addreaa": 200,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "200-500平方":
+					store = {
+						"store.typead": aa,
+						"store.address": shi,
+						"store.square": 200,
+						"store.addreaa": 500,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "500平方以上":
+					store = {
+						"store.typead": aa,
+						"store.address": shi,
+						"store.addreaa": 500,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+			}
+		}
+		if(bb != "全城" && cc != "面积") {
+			switch(cc) {
+				case "无限":
+					store = {
+						"store.typead": aa,
+						"store.address": shi + bb,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "20平方以下":
+					store = {
+						"store.typead": aa,
+						"store.address": shi + bb,
+						"store.square": 20,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "20-50平方":
+					store = {
+						"store.typead": aa,
+						"store.address": shi + bb,
+						"store.square": 20,
+						"store.addreaa": 50,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "50-100平方":
+					store = {
+						"store.typead": aa,
+						"store.address": shi + bb,
+						"store.square": 50,
+						"store.addreaa": 100,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "100-200平方":
+					store = {
+						"store.typead": aa,
+						"store.address": shi + bb,
+						"store.square": 100,
+						"store.addreaa": 200,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+				case "200-500平方":
+					store = {
+						"store.typead": aa,
+						"store.address": shi + bb,
+						"store.square": 200,
+						"store.addreaa": 500,
+						"page": 1
+
+					};
+					//					amount = 1;
+					break;
+				case "500平方以上":
+					store = {
+						"store.typead": aa,
+						"store.address": shi + bb,
+						"store.addreaa": 500,
+						"page": 1
+					};
+					//					amount = 1;
+					break;
+			}
+		}
+
+		console.log(store);
+		VisitBackstage(store);
+	}
+	
+	//分类事件
+	for(var i = 0; i < aObj.length; i++) {
+		aObj[i].index = i;
+	}
+	//点击显示
+	mui('#navs').on('tap', 'a', function() {
+		var s = this.index;
+		for(var i = 0; i < sheObj.length; i++) {
+			sheObj[i].className = 'she_tan';
+		}
+		sheObj[s].className = 'she_tan she_dis';
+		jt[s].className = 'mui-icon mui-icon-arrowup mui-pull-right m_jt';
+
+		//点击遮罩层隐藏
+		sheet1[s].addEventListener('tap', function() {
+			sheObj[s].className = 'she_tan';
+			jt[s].className = 'mui-icon mui-icon-arrowright mui-pull-right m_jt'
+		})
+	})
+
+	function atye() { //选中后隐藏二级菜单
+		for(var u = 0; u < sheObj.length; u++) {
+			sheObj[u].className = 'she_tan';
+		}
+	}
+	//出租
+	mui('#she1').on('tap', 'li', function() {
+		//		var a = s;
+		for(var j = 0; j < li1.length; j++) {
+			li1[j].className = 'li1';
+		}
+		this.className = 'li1 li_color';
+		xbdh[0].innerText = this.innerText;
+		aa = xbdh[0].innerText;
+		bb = xbdh[1].innerText;
+		cc = xbdh[2].innerText;
+		console.log(aa,bb,cc)
+		judge(aa, bb, cc);
+		jt[0].className = 'mui-icon mui-icon-arrowright mui-pull-right m_jt';
+		if(this.innerText == '出售') {
+			texts.innerText = '商铺出售';
+			mui.toast(texts.innerText)
+		} else if(this.innerText == '出租') {
+			texts.innerText = '商铺出售'
+		}
+		atye();
+		boxs.innerHTML = '';
+	})
+
+	//区域
+	mui('#she2').on('tap', 'li', function() {
+		for(var j2 = 0; j2 < li2.length; j2++) {
+			li2[j2].className = 'li2';
+		}
+		this.className = 'li2 li_color';
+		xbdh[1].innerText = this.innerText;
+		aa = xbdh[0].innerText;
+		bb = xbdh[1].innerText;
+		cc = xbdh[2].innerText;
+		console.log(aa,bb,cc)
+		judge(aa, bb, cc);
+		atye();
+		jt[1].className = 'mui-icon mui-icon-arrowright mui-pull-right m_jt';
+		boxs.innerHTML = '';
+	})
+
+	//面积
+	mui('#she3').on('tap', 'li', function() {
+		for(var j3 = 0; j3 < li3.length; j3++) {
+			li3[j3].className = 'li3';
+		}
+		this.className = 'li3 li_color';
+		xbdh[2].innerText = this.innerText;
+		aa = xbdh[0].innerText;
+		bb = xbdh[1].innerText;
+		cc = xbdh[2].innerText;
+		console.log(aa,bb,cc)
+		judge(aa, bb, cc);
+		atye();
+		jt[2].className = 'mui-icon mui-icon-arrowright mui-pull-right m_jt';
+		boxs.innerHTML = '';
+	})
+	VisitBackstage(store);
+
+	function VisitBackstage(store) {
+		mui.init({
+			swipeBack: false,
+			pullRefresh: {
+				container: '#pullrefresh',
+				up: {　　　　
+					contentrefresh: '正在加载...',
+					　　　　callback: pullupRefresh　　
+				},
+				down: {
+					contentrefresh: '正在刷新...',
+					callback: pulldownRefresh
+				}　
+			}
+		});
+		mui.ajax({
+			type: "post",
+			dataType: "json",
+			url: "http://192.168.3.5/Store/storeactions!Siteselection.action?rows=" + last,
+			data: store,
+			complete: function() {
+				$("#load").hide();
+			},
+			success: function(msg) {
+				var data = msg;
+				var tmp = '';
+				console.log(data)
+				console.log(amount)
+				var table = document.body.querySelector('.mui-table-view'); //滑动刷新盒子
+				var cells = document.body.querySelectorAll('.mui-table-view-cell'); //滑动刷新盒子
+				$.each(data, function(i, n) {
+					var li = document.createElement('li');
+					li.setAttribute("class", "mui-table-view-cell mui-media");
+					li.innerHTML += '<a id=' + n.sid + ' title="' + n.name + '" href="javascript:;"><img class="mui-media-object mui-pull-left" width=100 height=80 src="' + n.img + '"/><div class="mui-media-body"><h5>' +
+						n.name + '</h5><div><span>' +
+						+n.square + '平方</span><span>' + n.address + '</span><span>' +
+						n.shoptype + '</span></div><p class="mui-ellipsis"><b>' +
+						n.transferfee + '</div></a>';
+					table.appendChild(li); //将数据添加在后面
+					//					table.insertBefore(li, table.firstChild);//将数据添加到最前面
+				});
+
+			}
+		});
+	}
+
+	function pullupRefresh() {
+		setTimeout(function() {
+			store.page++;
+			VisitBackstage(store);
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh(); //refresh completed
+		}, 1000);
+	}
+
+	function pulldownRefresh() {
+		setTimeout(function() {
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+		}, 1500);
+	}
+</script>

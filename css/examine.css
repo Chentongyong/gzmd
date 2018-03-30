@@ -1,0 +1,146 @@
+/*头部*/
+.mui-bar-nav{
+	background: #F0f;
+}
+.mui-bar .mui-title{
+	color: #fff;
+}
+.introduce{
+	margin-top: 10px;
+	background: #fff;
+	padding: 15px 15px;
+	text-align: center;
+}
+.introduce span{
+	display: inline-block;
+	/*margin-right: -4px;*/
+	padding: 5px 0;
+}
+.introduce .span_left{
+    width: 60%;
+    font-size: 20px;
+    color: #CF2D28;
+    line-height: 40px;
+}
+
+.introduce .span_right{
+	width: 35%;
+	height: 40px;
+	background: #f0f;
+	text-align: center;
+	border-radius: 5px;
+	font-weight: 600;
+	color: #fff;
+}
+/*点击出现*/
+#sheet1{
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .3;
+	position: fixed;
+	top: 0;
+	z-index: 33;
+}
+#she_tan{
+	width: 100%;
+	margin: 0 auto;
+	display: none;
+}
+#she_tan.she_dis{
+	display: block;
+	/*width: 100%;
+	margin: 0 auto;*/
+}
+#she_tan .tan_nei{
+	width: 90%;
+	background: #fff;
+	margin: 0 auto;	
+	padding: 20px 0;
+	position:absolute;
+	top: 200px;
+	left: 5%;
+	z-index: 999;
+}
+#she_tan .tan_nei p{
+    padding-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #f0f;
+    text-indent: 10px;
+	border-bottom: 1px solid #ccc;
+}
+#she_tan .tan_nei a{
+	display: block;
+	font-size: 16px;
+	text-indent: 30px;
+}
+/*点击出现end*/
+
+/*头部end*/
+
+/*服务*/
+.serve{
+	margin-top: 10px;
+}
+.serve i{
+	font-size: 30px;
+	color: #CF2D28;
+	margin-right: 10px;
+}
+.serve .iconfont{
+	margin-top: 5px;
+}
+.serve .mui-ellipsis{
+	font-size: 20px;
+	line-height: 30px;
+}
+
+.serve .mui-pull-right{
+	color: #999;
+	line-height: 30px;
+}
+.serve .mui-pull-right i{
+	color: #999;
+	padding: 0;
+	line-height: 30px;
+	margin: 0;
+	position: relative;
+	top: 2px;
+}
+/*服务end*/
+
+/*公司介绍*/
+.About_us{
+	padding: 10px;
+	margin-top: 10px;
+	text-align: center;
+	background: #fff;
+}
+.About_us p{
+	font-size: 16px;
+	text-align: left;
+	text-indent: 2em;
+}
+/*公司介绍end*/
+
+/*底部导航*/
+.mui-bar-tab .iconfont{
+	display: block;
+	position: relative;
+	top:3px;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    padding-top: 0;
+    margin: 0 auto;
+}
+.mui-tab-label{
+	font-size: 14px;
+}
+
+
+.mui-bar-tab .mui-tab-item.mui-active{
+	color: #666;
+}
+/*底部导航end*/
